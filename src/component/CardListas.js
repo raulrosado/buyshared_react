@@ -13,7 +13,7 @@ export default function CardListas() {
     <div>
         <section style={{ padding: "10px" }}>
           <Grid.Container gap={2} justify="flex-start">
-            <Card>
+            <Card isPressable>
                 <Card.Header>
                     <Grid.Container css={{ pl: "$6" }}>
                         <Grid xs={12}>

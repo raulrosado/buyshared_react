@@ -1,16 +1,15 @@
 import React from 'react';
 //import { Button } from '@nextui-org/react';
-import { Container, Row, Text, Col, Avatar, Dropdown, User} from "@nextui-org/react";
-
+import { Container, Row, Text, Col, Avatar, Button, Dropdown, User,Grid} from "@nextui-org/react";
+import {MenuIcon} from '../icons/MenuIcon';
 
 function Head(props) {
 
   return (
-    <div style={{ padding: "10px", marginLeft:"10px" }}>
-      <Container fluid Display="flex" justify="space-between" AlignItems="flex-end" gap={0} style={{ padding: "10px" }}>
-        <Row fluid align="center" justify="space-between" gap={0}>
-          <Col span={4} justify="flex-end" AlignItems="flex-end" gap={0} style={{textAlign: '-webkit-right'}}>
-            <Dropdown placement="bottom-left" shadow>
+    <div style={{ padding: "10px" }}>
+      <Grid.Container gap={0} justify="center">
+        <Grid xs={10}>
+          <Dropdown placement="bottom-left" shadow>
               <Dropdown.Trigger>
                 <User
                   bordered
@@ -48,12 +47,15 @@ function Head(props) {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-          </Col>
-          <Col span={8} gap={0} style={{textAlign: '-webkit-left', display: 'flex'}} justify="center" align="center">
-            
-          </Col>
-        </Row>
-      </Container>
+        </Grid>
+        <Grid xs={2}>
+          <Button
+                auto
+                color="default"
+                icon={<MenuIcon fill="currentColor" size={20} />}
+              />
+        </Grid>
+      </Grid.Container>
     </div>
   )
 }
