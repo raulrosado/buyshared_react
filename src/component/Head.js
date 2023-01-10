@@ -1,10 +1,8 @@
 import React from 'react';
-//import { Button } from '@nextui-org/react';
 import { Container, Row, Text, Col, Avatar, Button, Dropdown, User,Grid} from "@nextui-org/react";
 import {MenuIcon} from '../icons/MenuIcon';
 
 function Head(props) {
-
   return (
     <div style={{ padding: "10px" }}>
       <Grid.Container gap={0} justify="center">
@@ -48,10 +46,9 @@ function Head(props) {
               </Dropdown.Menu>
             </Dropdown>
         </Grid>
-        <Grid xs={2}>
+        <Grid xs={2}  justify="flex-end">
           <Button
                 auto
-                color="default"
                 icon={<MenuIcon fill="currentColor" size={20} />}
               />
         </Grid>
