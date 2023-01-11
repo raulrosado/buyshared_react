@@ -25,7 +25,7 @@ export default function CardListas() {
                             <Text css={{ color: "$accents8" }}>15 articulos</Text>
                         </Grid>
                     </Grid.Container>
-                    <GrupoAvatar usuarios={pictureUsers}/>
+                    <GrupoAvatar usuarios={pictureUsers} size={"sm"}/>
                 </Card.Header>
             </Card>
           </Grid.Container>

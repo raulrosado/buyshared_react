@@ -12,8 +12,7 @@ export class Eventos extends Component {
             size={30}
             color="black"
             weight="bold"
-            style={{textAlign: 'left',marginLeft:'10px'}}
-        >
+            style={{textAlign: 'left',marginLeft:'10px'}}>
           Eventos
         </Text>
         <CardEvent/>

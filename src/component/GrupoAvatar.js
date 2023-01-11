@@ -5,11 +5,11 @@ export default function GrupoAvatar(props) {
     //console.log(props.usuarios)
   return (
     <div>
-       <Avatar.Group count={4}>
+       <Avatar.Group>
             {props.usuarios.map((url, index) => (
             <Avatar
                 key={index}
-                size="sm"
+                size={props.size}
                 pointer
                 src={url}
                 color="gradient"

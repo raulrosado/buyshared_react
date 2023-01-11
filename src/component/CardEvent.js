@@ -55,10 +55,10 @@ export class CardEvent extends Component {
     ];
     return (
       <div>
-        <section>
-          <Grid.Container gap={2} justify="flex-start">
+        <section style={{padding:'10px'}}>
+          <Grid.Container gap={0} justify="flex-start">
             {list.map((item, index) => (
-              <Grid xs={6} sm={3} key={index}>
+              <Grid xs={6} sm={3} key={index} style={{padding:'5px'}}>
                 <Card isPressable>
                   <Card.Body css={{ p: 0 }}>
                     <Card.Image
@@ -71,11 +71,11 @@ export class CardEvent extends Component {
                   </Card.Body>
                   <Card.Footer css={{ justifyItems: "flex-start" }}>
                     <Row wrap="wrap" justify="space-between" align="center">
-                      <Grid xs={12}>
-                        <GrupoAvatar usuarios={pictureUsers}/>
+                      <Grid xs={12} style={{padding:'3px'}}>
+                        <GrupoAvatar usuarios={pictureUsers} size={"sm"}/>
                       </Grid>
                       <Text
-                        css={{
+                         css={{
                           color: "$accents7",
                           fontWeight: "$semibold",
                           fontSize: "$sm",

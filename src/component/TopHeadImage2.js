@@ -13,30 +13,13 @@ function TopHeadImage() {
   ];
   return (
     <div>
-      <section className="imgBackground" style={{backgroundImage: 'url("https://nextui.org/images/fruit-1.jpeg")'}}>
+      <section>
         <Grid.Container gap={0} justify="center" style={{ padding: "10px" }}>
           <Grid xs={12}>
             <TopHeadOptions />
           </Grid>
-          <Spacer y={10} />
           <Grid xs={12}>
             <Text h2>Viaje al campismo</Text>
-          </Grid>
-          <Text h5 style={{ width: "100%", textAlign: "left" }}>
-            Miembros:
-          </Text>
-          <Grid xs={12} className="headMiembros">
-            <Grid xs={6} style={{ padding: "10px" }}>
-              <GrupoAvatar usuarios={pictureUsers} size={"md"} />
-            </Grid>
-            <Grid xs={6} justify="flex-end" style={{ padding: "10px" }}>
-              <Avatar
-                bordered
-                size="md"
-                as="button"
-                icon={<PlusIcon fill="currentColor" filled />}
-              />
-            </Grid>
           </Grid>
         </Grid.Container>
       </section>

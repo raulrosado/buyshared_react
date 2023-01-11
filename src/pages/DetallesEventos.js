@@ -1,14 +1,14 @@
 import React from "react"
 import { Container, Row, Text, Col, Avatar, Button, Dropdown, User,Grid} from "@nextui-org/react";
 import { useParams } from "react-router-dom";
-import TopHeadImage2 from "../component/TopHeadImage2";
+import TopHeadImage from "../component/TopHeadImage";
 import Task from "../component/Task";
 
-function Detalles(){
+function DetallesEventos(){
     const params = useParams();
     return (
         <div>
-            <TopHeadImage2/>
+            <TopHeadImage/>
             <Task/>
             <Task/>
             <Task/>
@@ -18,4 +18,4 @@ function Detalles(){
         </div>
     )
 }
-export default Detalles
+export default DetallesEventos

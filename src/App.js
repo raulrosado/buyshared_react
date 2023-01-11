@@ -1,6 +1,7 @@
 import './App.css';
 import Main from './pages/Main.js';
 import Detalles from './pages/Detalles.js';
+import DetallesEventos from './pages/DetallesEventos.js';
 import { Routes, Route, Link } from "react-router-dom";
 
 function App({ Component }) {
@@ -8,6 +9,7 @@ function App({ Component }) {
     <div className="App">
         <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/detallesEventos/:id" element={<DetallesEventos />} />
         <Route path="/detalles/:id" element={<Detalles />} />
         <Route path="*" element={NotFound} />
         </Routes>
