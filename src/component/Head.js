@@ -9,14 +9,24 @@ import {
   Dropdown,
   User,
   Grid,
+  Modal,
+  Input
 } from "@nextui-org/react";
 import { MenuIcon } from "../icons/MenuIcon";
+import { PlusIcon } from "../icons/PlusIcon";
+import { Productoimg } from "../icons/Productoimg";
 
 function Head(props) {
+  const [visible, setVisible] = React.useState(false);
+  const handler = () => setVisible(true);
+  const closeHandler = () => {
+    setVisible(false);
+    console.log("closed");
+  };
   return (
     <div style={{ padding: "10px" }}>
       <Grid.Container gap={0} justify="center">
-        <Grid xs={10}>
+        <Grid xs={8}>
           <User
             bordered
             as="button"
@@ -27,7 +37,15 @@ function Head(props) {
             src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
           />
         </Grid>
-        <Grid xs={2} justify="flex-end">
+        <Grid xs={4} justify="flex-end">
+          <Button
+              auto
+              color="error"
+              style={{ marginRight: "10px" }}
+              shadow
+              onPress={handler}
+              icon={<PlusIcon fill="currentColor" filled />}
+            />
           <Dropdown placement="bottom-left" shadow>
             <Dropdown.Trigger>
               <Avatar
@@ -66,6 +84,38 @@ function Head(props) {
           </Dropdown>
         </Grid>
       </Grid.Container>
+      <Modal
+        closeButton
+        blur
+        aria-labelledby="modal-title"
+        open={visible}
+        onClose={closeHandler}
+      >
+        <Modal.Header>
+          <Text id="modal-title" size={18}>
+            Agregar articulo
+          </Text>
+        </Modal.Header>
+        <Modal.Body>
+          <Input
+            clearable
+            bordered
+            fullWidth
+            color="primary"
+            size="lg"
+            placeholder="Articulo"
+            contentLeft={<Productoimg fill="currentColor" />}
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button auto flat color="error" onPress={closeHandler}>
+            Close
+          </Button>
+          <Button auto onPress={closeHandler}>
+            Agregar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

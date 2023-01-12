@@ -1,13 +1,13 @@
 import React from "react";
 import { Avatar, Button, Dropdown, Grid, Text, Row } from "@nextui-org/react";
 import { LeftArroy } from "../icons/LeftArroy";
-import { MenuIcon } from "../icons/MenuIcon";
 import { PlusIcon } from "../icons/PlusIcon";
+import { Personplus } from "../icons/Personplus";
+import { Productoimg } from "../icons/Productoimg";
+import { DeleteDocumentIcon } from "../icons/DeleteDocumentIcon";
 import { Dotsverticalround } from "../icons/Dotsverticalround";
 import { Link } from "react-router-dom";
 import { Modal, Input, Checkbox } from "@nextui-org/react";
-import { Mail } from "../icons/Mail";
-import { Password } from "../icons/Password";
 
 function TopHeadOptions() {
   const [visible, setVisible] = React.useState(false);
@@ -51,8 +51,25 @@ function TopHeadOptions() {
               />
             </Dropdown.Trigger>
             <Dropdown.Menu color="secondary" aria-label="Avatar Actions">
-              <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
-              <Dropdown.Item key="analytics">Analytics</Dropdown.Item>
+              <Dropdown.Item
+                key="new"
+                command="⌘N"
+                // icon={
+                //   <Personplus size={22} fill="currentColor" />
+                // }
+              >
+                Agregar Amigo
+              </Dropdown.Item>
+              <Dropdown.Item
+              withDivider
+              key="delete"
+              color="error"
+              command="⌘⇧D"
+              description="Eliminar permanentemente la lista"
+              icon={<DeleteDocumentIcon size={22} fill="currentColor" />}
+            >
+              Eliminar Lista
+            </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Grid>
@@ -67,10 +84,7 @@ function TopHeadOptions() {
       >
         <Modal.Header>
           <Text id="modal-title" size={18}>
-            Welcome to
-            <Text b size={18}>
-              NextUI
-            </Text>
+            Agregar articulo
           </Text>
         </Modal.Header>
         <Modal.Body>
@@ -80,31 +94,16 @@ function TopHeadOptions() {
             fullWidth
             color="primary"
             size="lg"
-            placeholder="Email"
-            contentLeft={<Mail fill="currentColor" />}
+            placeholder="Articulo"
+            contentLeft={<Productoimg fill="currentColor" />}
           />
-          <Input
-            clearable
-            bordered
-            fullWidth
-            color="primary"
-            size="lg"
-            placeholder="Password"
-            contentLeft={<Password fill="currentColor" />}
-          />
-          <Row justify="space-between">
-            <Checkbox>
-              <Text size={14}>Remember me</Text>
-            </Checkbox>
-            <Text size={14}>Forgot password?</Text>
-          </Row>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onPress={closeHandler}>
             Close
           </Button>
           <Button auto onPress={closeHandler}>
-            Sign in
+            Agregar
           </Button>
         </Modal.Footer>
       </Modal>
