@@ -36,7 +36,7 @@ function Head(props) {
                 as="button"
                 squared
                 icon={<MenuIcon fill="currentColor" filled />}
-            />
+              />
             </Dropdown.Trigger>
             <Dropdown.Menu color="primary" shadow aria-label="User Actions">
               <Dropdown.Item key="profile" css={{ height: "$18" }}>
