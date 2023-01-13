@@ -51,25 +51,25 @@ function TopHeadOptions() {
               />
             </Dropdown.Trigger>
             <Dropdown.Menu color="secondary" aria-label="Avatar Actions">
-              <Dropdown.Item
-                key="new"
-                command="⌘N"
-                // icon={
-                //   <Personplus size={22} fill="currentColor" />
-                // }
+                <Dropdown.Item
+                  key="new"
+                  command="⌘N"
+                  // icon={
+                  //   <Personplus size={22} fill="currentColor" />
+                  // }
+                >
+                  Agregar Amigo
+                </Dropdown.Item>
+                <Dropdown.Item
+                withDivider
+                key="delete"
+                color="error"
+                command="⌘⇧D"
+                description="Eliminar permanentemente la lista"
+                icon={<DeleteDocumentIcon size={22} fill="currentColor" />}
               >
-                Agregar Amigo
+                Eliminar Lista
               </Dropdown.Item>
-              <Dropdown.Item
-              withDivider
-              key="delete"
-              color="error"
-              command="⌘⇧D"
-              description="Eliminar permanentemente la lista"
-              icon={<DeleteDocumentIcon size={22} fill="currentColor" />}
-            >
-              Eliminar Lista
-            </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Grid>
