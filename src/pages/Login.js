@@ -3,7 +3,6 @@ import {
   Button,
   Input,
   Grid,
-  Link,
   Image
 } from "@nextui-org/react";
 import { Mail } from "../icons/Mail";
@@ -11,6 +10,7 @@ import { Password } from "../icons/Password";
 import "./Login.css";
 import { UnLockIcon } from "../icons/UnLockIcon";
 import { LockIcon } from "../icons/LockIcon";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [visible, setVisible] = React.useState(false);
@@ -35,31 +35,31 @@ function Login() {
             <Grid.Container gap={2} justify="center">
             <Grid xs={12}>
                 <Input
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                type="email"
-                placeholder="Email"
-                contentRight={<Mail fill="currentColor" />}
+                  clearable
+                  bordered
+                  fullWidth
+                  color="primary"
+                  size="lg"
+                  type="email"
+                  placeholder="Email"
+                  contentRight={<Mail fill="currentColor" />}
                 />
             </Grid>
             <Grid xs={12}>
                 <Input.Password
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                type="password"
-                placeholder="Contraseña"
-                visibleIcon={<UnLockIcon fill="currentColor" />}
-                hiddenIcon={<LockIcon fill="currentColor" />}
+                  clearable
+                  bordered
+                  fullWidth
+                  color="primary"
+                  size="lg"
+                  type="password"
+                  placeholder="Contraseña"
+                  visibleIcon={<UnLockIcon fill="currentColor" />}
+                  hiddenIcon={<LockIcon fill="currentColor" />}
                 />
             </Grid>
             <Grid xs={6}>
-                <Link href="registro">No tengo cuenta!</Link>
+                <Link to="/registro">No tengo cuenta!</Link>
             </Grid>
             <Grid xs={6} justify="flex-end">
                 <Button auto onPress={closeHandler}>
