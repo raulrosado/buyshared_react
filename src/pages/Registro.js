@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import { Button, Input, Grid, Text,Loading } from "@nextui-org/react";
+import { Button, Input, Grid, Text, Loading, Badge } from "@nextui-org/react";
 import { Mail } from "../icons/Mail";
 import { Usericon } from "../icons/Usericon";
+import { CheckIcon } from "../icons/CheckIcon";
+import { CloseIcon } from "../icons/CloseIcon";
 import { Password } from "../icons/Password";
-import "./Login.css";
+import "./login/Login.css";
 import { UnLockIcon } from "../icons/UnLockIcon";
 import { LockIcon } from "../icons/LockIcon";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 
 function Registro() {
   const [user, setUser] = React.useState({
@@ -16,11 +19,12 @@ function Registro() {
     password: "",
   });
   const [loading, setLoading] = React.useState(false);
+  const [success, setSuccess] = React.useState(null);
+  const navigate = useNavigate ();
 
   const post = () => {
-    console.log("enviar primero");
     if (!loading) {
-      setLoading(true)
+      setLoading(true);
       axios({
         method: "POST",
         url: "http://localhost:5000/v1/api/add_user",
@@ -31,29 +35,75 @@ function Registro() {
         },
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
+          Accept: "application/json",
           "Access-Control-Allow-Origin": "http://localhost:3000/registro",
-        }
+        },
       })
-        .then(function (response) {
-          console.log(response);
-          setLoading(false)
-        })
-        .catch(function (error) {
-          console.log(error);
-          setLoading(false)
-        });
-     
-      
+      .then(function (response) {
+        console.log(response);
+        if(response.data.status){
+          setSuccess(true) 
+          navigate('/login');
+        }else{
+          setSuccess(false);
+        }
+        setLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+        setSuccess(false);
+        setLoading(false);
+      });
     }
     console.log("enviar");
   };
 
   let button;
   if (loading) {
-    button = <Loading type="points" color="currentColor" size="sm" />
+    button = <Loading type="points" color="currentColor" size="sm" />;
   } else {
-    button = <Text color="white">Crear cuenta</Text>
+    button = <Text color="white">Crear cuenta</Text>;
+  }
+
+  let btn_success = "";
+  console.log(success);
+  if (success) {
+    btn_success = <Badge
+            enableShadow
+            disableOutline
+            color="success"
+            content={<CheckIcon width={24} height={24} />}
+            css={{ p: "0" }}
+            horizontalOffset="-22%"
+            verticalOffset="45%"
+          >
+            <Badge
+              enableShadow
+              disableOutline
+              color="success"
+            >
+              Usuario agregado
+            </Badge>
+          </Badge>;
+  } 
+  if(!success) {
+    btn_success = <Badge
+            enableShadow
+            disableOutline
+            color="error"
+            content={<CloseIcon width={24} height={24} fill="none"/>}
+            css={{ p: "0" }}
+            horizontalOffset="112%"
+            verticalOffset="45%"
+          >
+            <Badge
+              enableShadow
+              disableOutline
+              color="error"
+            >
+              Error en el registro
+            </Badge>
+          </Badge>;
   }
 
   return (
@@ -107,10 +157,13 @@ function Registro() {
             </Grid>
             <Grid xs={6} justify="flex-end">
               <Button auto onPress={post}>
-                { button }
+                {button}
               </Button>
             </Grid>
           </Grid.Container>
+        </Grid>
+        <Grid xs={12} justify="center" alignContent="center">
+          {btn_success}
         </Grid>
       </Grid.Container>
     </div>
