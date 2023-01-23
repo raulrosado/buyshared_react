@@ -4,7 +4,6 @@ import { Mail } from "../icons/Mail";
 import { Usericon } from "../icons/Usericon";
 import { CheckIcon } from "../icons/CheckIcon";
 import { CloseIcon } from "../icons/CloseIcon";
-import { Password } from "../icons/Password";
 import "./login/Login.css";
 import { UnLockIcon } from "../icons/UnLockIcon";
 import { LockIcon } from "../icons/LockIcon";
