@@ -15,18 +15,12 @@ import { Link } from "react-router-dom";
 import { useNavigate  } from "react-router-dom";
 import axios from "axios";
 import { setUser } from "../../actions";
-import { connect } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
 
-const mapStateToProps = state => ({
-  user:state.user
-});
-
-const mapDispatchToProps = dispatch =>({
-  setUser: value => dispatch(setUser(value))
-})
-
-function Login({user,setUser}) {
+function Login() {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
 
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
@@ -50,7 +44,7 @@ function Login({user,setUser}) {
         .then(function (response) {
           console.log(response);
           setLoading(false)
-          setUser(response.data)
+          dispatch(setUser(response.data))
           navigate('/main');
         })
         .catch(function (error) {
@@ -123,4 +117,4 @@ function Login({user,setUser}) {
   );
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Login);
+export default Login;
