@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Button, Input, Grid, Text, Loading, Badge } from "@nextui-org/react";
 import { Mail } from "../icons/Mail";
 import { Usericon } from "../icons/Usericon";
@@ -12,11 +12,11 @@ import { Link } from "react-router-dom";
 import { useNavigate  } from "react-router-dom";
 
 function Registro() {
-  const [user, setUser] = React.useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  // const [user, setUser] = React.useState({
+  //   name: "",
+  //   email: "",
+  //   password: "",
+  // });
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(null);
   const navigate = useNavigate ();

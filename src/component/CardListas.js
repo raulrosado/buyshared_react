@@ -22,7 +22,7 @@ export default function CardListas(props) {
                             </Text>
                         </Grid>
                         <Grid xs={12}>
-                            <Text css={{ color: "$accents8" }}>15 articulos</Text>
+                            <Text css={{ color: "$accents8" }}>{props.infoList.cant} articulos</Text>
                         </Grid>
                     </Grid.Container>
                     <GrupoAvatar usuarios={pictureUsers} size={"sm"}/>

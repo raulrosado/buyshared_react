@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
   Button,
   Input,
@@ -8,7 +8,6 @@ import {
   Text
 } from "@nextui-org/react";
 import { Mail } from "../../icons/Mail";
-import { Password } from "../../icons/Password";
 import "./Login.css";
 import { UnLockIcon } from "../../icons/UnLockIcon";
 import { LockIcon } from "../../icons/LockIcon";
