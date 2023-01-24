@@ -7,8 +7,16 @@ import reportWebVitals from './reportWebVitals';
 import { NextUIProvider } from '@nextui-org/react';
 import { BrowserRouter } from "react-router-dom";
 
+import {createStore} from 'redux';
+import { Provider } from 'react-redux';
+import userReducer from './reducers/userReducer';
+
+const store = createStore(userReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <Provider store={store}>
   <React.StrictMode>
     <NextUIProvider>
       <BrowserRouter>
@@ -16,6 +24,7 @@ root.render(
       </BrowserRouter>
     </NextUIProvider>
   </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

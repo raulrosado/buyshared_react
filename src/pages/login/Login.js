@@ -14,15 +14,23 @@ import { LockIcon } from "../../icons/LockIcon";
 import { Link } from "react-router-dom";
 import { useNavigate  } from "react-router-dom";
 import axios from "axios";
+import { setUser } from "../../actions";
+import { connect } from "react-redux";
 
-function Login() {
-const [user, setUser] = React.useState({
-    name: "",
-    email: "",
-    token: "",
-  });
+
+const mapStateToProps = state => ({
+  user:state.user
+});
+
+const mapDispatchToProps = dispatch =>({
+  setUser: value => dispatch(setUser(value))
+})
+
+function Login({user,setUser}) {
+
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
+
 
   const login = () => {
     if (!loading) {
@@ -42,6 +50,7 @@ const [user, setUser] = React.useState({
         .then(function (response) {
           console.log(response);
           setLoading(false)
+          setUser(response.data)
           navigate('/main');
         })
         .catch(function (error) {
@@ -114,4 +123,4 @@ const [user, setUser] = React.useState({
   );
 }
 
-export default Login;
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
