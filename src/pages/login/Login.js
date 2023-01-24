@@ -75,7 +75,7 @@ const [user, setUser] = React.useState({
             <Grid.Container gap={2} justify="center">
             <Grid xs={12}>
                 <Input
-                    id="email"
+                  id="email"
                   clearable
                   bordered
                   fullWidth
@@ -88,7 +88,7 @@ const [user, setUser] = React.useState({
             </Grid>
             <Grid xs={12}>
                 <Input.Password
-                id="password"
+                  id="password"
                   clearable
                   bordered
                   fullWidth

@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Grid,Text } from "@nextui-org/react";
 import GrupoAvatar from './GrupoAvatar';
 
-export default function CardListas() {
+export default function CardListas(props) {
     const pictureUsers = [
         "https://i.pravatar.cc/150?u=a042581f4e29026024d",
         "https://i.pravatar.cc/150?u=a042581f4e29026704d",
@@ -18,7 +18,7 @@ export default function CardListas() {
                     <Grid.Container css={{ pl: "$6" }}>
                         <Grid xs={12}>
                             <Text h4 css={{ lineHeight: "$xs" }}>
-                                Compras de la semana
+                               {props.infoList.nombre}
                             </Text>
                         </Grid>
                         <Grid xs={12}>
