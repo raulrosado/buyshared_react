@@ -6,7 +6,7 @@ export class Main extends Component {
   render() {
     return (
       <div>
-        <Head srcdir="https://i.pravatar.cc/150?u=a042581f4e29026024d"/>
+        <Head/>
         <Eventos/>
       </div>
     )
