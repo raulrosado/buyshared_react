@@ -8,7 +8,8 @@ import {
   Grid,
   Switch,
   Modal,
-  Input
+  Input,
+  Loading
 } from "@nextui-org/react";
 import { MenuIcon } from "../icons/MenuIcon";
 import { PlusIcon } from "../icons/PlusIcon";
@@ -17,22 +18,60 @@ import { useSelector } from "react-redux";
 import config from '../config/config';
 import { AddNoteIcon } from "../icons/AddNoteIcon.js"
 import { EditDocumentIcon } from "../icons/EditDocumentIcon.js"
+import { postList } from "../api/postList";
 
 function Head() {
   const [visible, setVisible] = React.useState(false);
 
   const [selected2, setSelected2] = React.useState(new Set(["text"]));
   const [event, setEvent] = React.useState(false);
-
-  // const selectedValue = React.useMemo(
-  //   () => Array.from(selected).join(", ").replaceAll("_", " "),
-  //   [selected]
-  // );
+  const [loading, setLoading] = React.useState(false);
   const user = useSelector(state => state.user);
   const handler = () => setVisible(true);
   const closeHandler = () => {
     setVisible(false);
   };
+
+  const form = document.querySelector("form");
+
+  let header = {
+    headers: {
+      Authorization : `Bearer ${user.token}`
+    }
+  }
+  let PostList;
+
+  if(event){
+    header = {
+      headers: {
+        Authorization : `Bearer ${user.token}`,
+        "Content-Type": "multipart/form-data"
+      }
+    }
+    
+    PostList = ()=>{
+      setLoading(true); 
+        const formData = new FormData(form);
+        postList(formData,header).then((res)=>{
+          setLoading(false); 
+          // setVisible(false);
+        });
+    }
+  }else{
+    PostList = ()=>{
+        setLoading(true); 
+        const data = {
+          id_event: '',
+          nombre: document.getElementById("name_list").value,
+          estado: 1,
+          referencia: "",
+        }
+        postList(data,header).then((res)=>{
+          setLoading(false); 
+          setVisible(false);
+        });
+    }
+  }
 
   //` if(seleccionado !== selected2.anchorKey){
   //   if(selected2.anchorKey === "add_list"){
@@ -46,10 +85,16 @@ function Head() {
     setEvent(e.target.checked);
   }
 
+  let button;
+  if (loading) {
+    button = <Loading type="points" color="currentColor" size="sm" />
+  } else {
+    button = <Text color="white">Enviar</Text>
+  }
+
   return (
     <div style={{ padding: "10px" }}>
       <Grid.Container gap={0} justify="center">
-        
         <Grid xs={8}>
           <User
             bordered
@@ -117,8 +162,10 @@ function Head() {
           </Text>
         </Modal.Header>
         <Modal.Body>
+          <form name="addListForm" methot="POST" encType="multipart/form-date">
           <Input
             id="name_list"
+            name="name_list"
             clearable
             bordered
             fullWidth
@@ -137,14 +184,15 @@ function Head() {
               <Switch shadow color="primary" checked={false} onChange={evento}/>
             </Grid>
           </Grid.Container>
-          {event ? (<Input clearable type="file" color="primary" size="sm" placeholder="File" />) : null }
+          {event ? (<Input clearable name="file" id="file" type="file" color="primary" size="sm" placeholder="File"  onChange={(e)=>this.handleFile(e)}/>) : null }
+          </form>
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onPress={closeHandler}>
             Close
           </Button>
-          <Button auto onPress={closeHandler}>
-            Agregar
+          <Button auto onPress={PostList}>
+            {button}
           </Button>
         </Modal.Footer>
       </Modal>

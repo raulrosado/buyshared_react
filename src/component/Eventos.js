@@ -21,8 +21,7 @@ function Eventos(){
 
   useEffect(() => {
     if(!loadingList){
-      setLoading(true);
-
+      setLoading(true); 
       getList(user.user._id,config).then((res)=> {
         //cargo el array de imagenes
         setListsAvatares(res.data[res.data.length - 1]);
