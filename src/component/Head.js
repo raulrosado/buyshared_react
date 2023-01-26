@@ -19,6 +19,7 @@ import config from '../config/config';
 import { AddNoteIcon } from "../icons/AddNoteIcon.js"
 import { EditDocumentIcon } from "../icons/EditDocumentIcon.js"
 import { postList } from "../api/postList";
+import { postEvent } from "../api/postEvent";
 
 function Head() {
   const [visible, setVisible] = React.useState(false);
@@ -52,9 +53,9 @@ function Head() {
     PostList = ()=>{
       setLoading(true); 
         const formData = new FormData(form);
-        postList(formData,header).then((res)=>{
+        postEvent(formData,header).then((res)=>{
           setLoading(false); 
-          // setVisible(false);
+          setVisible(false);
         });
     }
   }else{
