@@ -3,6 +3,7 @@ import { Container, Row, Text, Col, Avatar } from "@nextui-org/react";
 import { Card, Grid, Progress } from "@nextui-org/react";
 import GrupoAvatar from "./GrupoAvatar";
 import config from '../config/config';
+import { Link } from "react-router-dom";
 
 export default function CardEvent(props) {
 
@@ -13,6 +14,7 @@ export default function CardEvent(props) {
           <Grid.Container gap={0} justify="flex-start">
             {props.infoList.map((item, index) => (
               <Grid xs={6} sm={3} key={index} style={{padding:'5px'}}>
+                <Link to={`../detallesEventos/${item._id}`} key={index}>
                 <Card isPressable>
                   <Card.Body css={{ p: 0 }}>
                     <Card.Image
@@ -43,6 +45,7 @@ export default function CardEvent(props) {
                     </Row>
                   </Card.Footer>
                 </Card>
+                </Link>
               </Grid>
             ))}
           </Grid.Container>
