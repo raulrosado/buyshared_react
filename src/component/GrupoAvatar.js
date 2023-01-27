@@ -3,8 +3,6 @@ import { Avatar } from "@nextui-org/react";
 import config from '../config/config';
 
 export default function GrupoAvatar(props) {
-    //console.log(props.usuarios)
-    // http://localhost:5000/images/150.jpeg
   return (
     <div>
        <Avatar.Group>

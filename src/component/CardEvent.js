@@ -2,67 +2,21 @@ import React, { Component } from "react";
 import { Container, Row, Text, Col, Avatar } from "@nextui-org/react";
 import { Card, Grid, Progress } from "@nextui-org/react";
 import GrupoAvatar from "./GrupoAvatar";
+import config from '../config/config';
 
-export class CardEvent extends Component {
-  render() {
-    const list = [
-      {
-        title: "Orange",
-        img: "/images/fruit-1.jpeg",
-        price: "$5.50",
-      },
-      {
-        title: "Tangerine",
-        img: "/images/fruit-2.jpeg",
-        price: "$3.00",
-      },
-      {
-        title: "Cherry",
-        img: "/images/fruit-3.jpeg",
-        price: "$10.00",
-      },
-      {
-        title: "Lemon",
-        img: "/images/fruit-4.jpeg",
-        price: "$5.30",
-      }
-      /*,
-      {
-        title: "Avocado",
-        img: "/images/fruit-5.jpeg",
-        price: "$15.70",
-      },
-      {
-        title: "Lemon 2",
-        img: "/images/fruit-6.jpeg",
-        price: "$8.00",
-      },
-      {
-        title: "Banana",
-        img: "/images/fruit-7.jpeg",
-        price: "$7.50",
-      },
-      {
-        title: "Watermelon",
-        img: "/images/fruit-8.jpeg",
-        price: "$12.20",
-      },*/
-    ];
-    const pictureUsers = [
-      "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-      "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-      "https://i.pravatar.cc/150?u=a04258114e29026702d",
-    ];
+export default function CardEvent(props) {
+
+    const pictureUsers = props.avatares;
     return (
       <div>
         <section style={{padding:'10px'}}>
           <Grid.Container gap={0} justify="flex-start">
-            {list.map((item, index) => (
+            {props.infoList.map((item, index) => (
               <Grid xs={6} sm={3} key={index} style={{padding:'5px'}}>
                 <Card isPressable>
                   <Card.Body css={{ p: 0 }}>
                     <Card.Image
-                      src={"https://nextui.org" + item.img}
+                      src={config.URL +"images/"+ item.bg}
                       objectFit="cover"
                       width="100%"
                       height={140}
@@ -72,7 +26,7 @@ export class CardEvent extends Component {
                   <Card.Footer css={{ justifyItems: "flex-start" }}>
                     <Row wrap="wrap" justify="space-between" align="center">
                       <Grid xs={12} style={{padding:'3px'}}>
-                        <GrupoAvatar usuarios={pictureUsers} size={"sm"}/>
+                        <GrupoAvatar usuarios={pictureUsers[index]} size={"sm"}/>
                       </Grid>
                       <Text
                          css={{
@@ -81,11 +35,11 @@ export class CardEvent extends Component {
                           fontSize: "$sm",
                         }}
                       >
-                        15 articulos
+                        {item.cant > 0 ? item.cant : 0 } articulos
                       </Text>
                     </Row>
                     <Row>
-                      <Progress color="primary" shadow size="xs" value={68} />
+                      <Progress color="primary" shadow size="xs" value={item.complet} />
                     </Row>
                   </Card.Footer>
                 </Card>
@@ -95,7 +49,5 @@ export class CardEvent extends Component {
         </section>
       </div>
     );
-  }
 }
 
-export default CardEvent;
