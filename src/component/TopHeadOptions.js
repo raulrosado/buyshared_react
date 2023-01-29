@@ -20,7 +20,7 @@ function TopHeadOptions() {
     <div style={{width:'100%'}}>
       <Grid.Container gap={0} justify="center">
         <Grid xs={4} justify="flex-start">
-          <Link to="/">
+          <Link to="/main">
             <Avatar
               bordered
               size="md"

@@ -12,12 +12,16 @@ import GrupoAvatar from "./GrupoAvatar";
 import { Dotsverticalround } from "../icons/Dotsverticalround";
 import { DeleteDocumentIcon } from "../icons/DeleteDocumentIcon";
 
-function Task() {
-  const pictureUsers = [
-    "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    "https://i.pravatar.cc/150?u=a04258114e29026702d",
-  ];
+function Task(props) {
+  let checkbock;
+  let del;
+  if(props.info.estado === 2){
+    checkbock = <Checkbox size="xl"  color="success" isDisabled defaultSelected/>
+    del = <Text h4 css={{ lineHeight: "$xs" }} del>{props.info.texto}</Text>
+  }else{
+    checkbock = <Checkbox size="xl" />
+    del = <Text h4 css={{ lineHeight: "$xs" }}>{props.info.texto}</Text>
+  }
 
   return (
     <div style={{ padding: "10px" }}>
@@ -28,18 +32,12 @@ function Task() {
               <Grid xs={10}>
                 <Grid.Container>
                   <Grid xs={12} justify="flex-start">
-                    <Text h4 css={{ lineHeight: "$xs" }}>
-                      Compras de la semana
-                    </Text>
-                  </Grid>
-                  <Grid xs={12} justify="flex-start">
-                    <GrupoAvatar usuarios={pictureUsers} size={"sm"} />
+                    {del}
                   </Grid>
                 </Grid.Container>
               </Grid>
               <Grid xs={2} justify="flex-end">
-
-                <Checkbox defaultSelected size="xl" />
+                {checkbock}
                 <Spacer x={1} />
                 <div style={{alignItems:'center',display: 'flex'}}>
                   <Dropdown placement="bottom-left" style={{marginTop:'10px'}}>

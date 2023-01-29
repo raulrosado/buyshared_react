@@ -5,13 +5,13 @@ import "./css/topHeadImagen.css";
 import GrupoAvatar from "./GrupoAvatar";
 import { PlusIcon } from "../icons/PlusIcon";
 
-function TopHeadImage() {
-  const pictureUsers = [
-    "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    "https://i.pravatar.cc/150?u=a04258114e29026702d",
-  ];
-  return (
+function TopHeadImage(props) {
+  console.log(props.infoList.avatarList)
+  let avatars
+  if(props.infoList.avatarList){
+    avatars = <GrupoAvatar usuarios={props.infoList.avatarList} size={"md"} />
+  }
+    return (
     <div>
       <section>
         <Grid.Container gap={0} justify="center" style={{ padding: "10px" }}>
@@ -19,7 +19,23 @@ function TopHeadImage() {
             <TopHeadOptions />
           </Grid>
           <Grid xs={12}>
-            <Text h2>Viaje al campismo</Text>
+            <Text h2>{props.infoList.nombre}</Text>
+          </Grid>
+          <Text h5 style={{ width: "100%", textAlign: "left" }}>
+            Miembros:
+          </Text>
+          <Grid xs={12} className="headMiembros">
+            <Grid xs={6} style={{ padding: "10px" }}>
+              {avatars}
+            </Grid>
+            <Grid xs={6} justify="flex-end" style={{ padding: "10px" }}>
+              <Avatar
+                bordered
+                size="md"
+                as="button"
+                icon={<PlusIcon fill="currentColor" filled />}
+              />
+            </Grid>
           </Grid>
         </Grid.Container>
       </section>

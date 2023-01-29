@@ -10,12 +10,12 @@ import { getEvent } from '../api/getEvent';
 function Eventos(){
   const user = useSelector(state => state.user);
   const [lists, setLists] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [listsEvent, setListsEvent] = useState([]);
   const [listsAvatares, setListsAvatares] = useState([]);
   const [listsAvataresEvent, setListsAvataresEvent] = useState([]);
   const [loadingList, setLoadingList] = useState(false);
   const [loadingListEvent, setLoadingListEvent] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [loadingEvent, setLoadingEvent] = useState(false);
 
   let config = {
@@ -40,7 +40,7 @@ function Eventos(){
       })
     }
     if(!loadingListEvent){
-      setLoading(true); 
+      setLoadingEvent(true); 
       getEvent(user.user._id,config).then((res)=> {
         //cargo el array de imagenes
         setListsAvataresEvent(res.data[res.data.length - 1]);
