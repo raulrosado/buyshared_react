@@ -16,7 +16,7 @@ function Task(props) {
   let checkbock;
   let del;
   if(props.info.estado === 2){
-    checkbock = <Checkbox size="xl"  color="success" isDisabled defaultSelected/>
+    checkbock = <Checkbox size="xl"  color="success" defaultSelected/>
     del = <Text h4 css={{ lineHeight: "$xs" }} del>{props.info.texto}</Text>
   }else{
     checkbock = <Checkbox size="xl" />

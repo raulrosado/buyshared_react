@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, Loading } from "@nextui-org/react";
+import { Text, Loading,Spacer,Badge } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
 import TopHeadImage2 from "../component/TopHeadImage2";
 import Task from "../component/Task";
@@ -47,10 +47,11 @@ function Detalles() {
 
   return (
     <div>
-      <TopHeadImage2 infoList={detail}/>
+      {detail ? (<TopHeadImage2 infoList={detail}/>) : null}
       {tasks.map((infoTask, i) => (
         <Task info={infoTask} key={i}/>
       ))}
+      {tasks.length === 0 ? (<div><Spacer y={1} /><Badge color="secondary">Agregue una tarea</Badge></div>) : null}
       {loadingCond}
     </div>
   );
