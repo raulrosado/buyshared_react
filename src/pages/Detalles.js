@@ -6,14 +6,17 @@ import Task from "../component/Task";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getDetailList } from "../api/getDetailList";
+import { setEvent, setList } from "../actions";
 
 function Detalles() {
   const params = useParams();
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [detail, setDetail] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingList, setLoadingList] = useState(false);
+
 
   let config = {
     headers: {
@@ -24,16 +27,10 @@ function Detalles() {
     if (!loadingList) {
       setLoading(true);
       getDetailList(params.id, config).then((res) => {
-        //cargo el array de imagenes
-        // setListsAvatares(res.data[res.data.length - 1]);
-        // //elimino el ultimo elemento del array pq son las imagenes
-        // let listsMenos = res.data
-        // listsMenos.pop();
-        // setLists(listsMenos);
-        // console.log(res)
         setDetail(res.data);
         setTasks(res.data.tasks)
-
+        dispatch(setEvent(0))
+        dispatch(setList(params.id))
         setLoading(false);
         setLoadingList(true);
       });

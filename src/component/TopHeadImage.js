@@ -8,17 +8,13 @@ import config from '../config/config';
 
 function TopHeadImage(props) {
   const pictureUsers = props.infoList.avatar;
-  // console.log(props.infoList)
-  console.log(pictureUsers)
   let avatars;
   if(pictureUsers !== undefined){
-    console.log('no esta undefine');
     avatars =<GrupoAvatar usuarios={pictureUsers} size={"md"} />
   }
   
   return (
     <div>
-      
       <section className="imgBackground" style={{backgroundImage: `url(${config.URL}images/${props.infoList.bg})`}}>
         <Grid.Container gap={0} justify="center" style={{ padding: "10px" }}>
           <Grid xs={12}>

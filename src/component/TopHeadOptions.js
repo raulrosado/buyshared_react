@@ -8,14 +8,36 @@ import { DeleteDocumentIcon } from "../icons/DeleteDocumentIcon";
 import { Dotsverticalround } from "../icons/Dotsverticalround";
 import { Link } from "react-router-dom";
 import { Modal, Input, Checkbox } from "@nextui-org/react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { postAddTask } from "../api/postAddTask";
 
 function TopHeadOptions() {
   const [visible, setVisible] = React.useState(false);
   const handler = () => setVisible(true);
+  const user = useSelector((state) => state.user);
   const closeHandler = () => {
     setVisible(false);
-    console.log("closed");
   };
+  
+  let config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
+
+  const addTask = () => {
+    const parametro = {
+      task : document.getElementById("taskTexto").value,
+      idEvent:user.idEvent,
+      idList:user.idList
+    }
+    console.log(parametro);
+    postAddTask(parametro,config).then((res) =>{
+      console.log('se envio');
+    })
+  }
+
   return (
     <div style={{width:'100%'}}>
       <Grid.Container gap={0} justify="center">
@@ -54,9 +76,6 @@ function TopHeadOptions() {
                 <Dropdown.Item
                   key="new"
                   command="⌘N"
-                  // icon={
-                  //   <Personplus size={22} fill="currentColor" />
-                  // }
                 >
                   Agregar Amigo
                 </Dropdown.Item>
@@ -89,6 +108,7 @@ function TopHeadOptions() {
         </Modal.Header>
         <Modal.Body>
           <Input
+            id="taskTexto"
             clearable
             bordered
             fullWidth
@@ -102,7 +122,7 @@ function TopHeadOptions() {
           <Button auto flat color="error" onPress={closeHandler}>
             Close
           </Button>
-          <Button auto onPress={closeHandler}>
+          <Button auto onPress={addTask}>
             Agregar
           </Button>
         </Modal.Footer>
