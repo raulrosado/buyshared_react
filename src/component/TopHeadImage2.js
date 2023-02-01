@@ -5,18 +5,22 @@ import "./css/topHeadImagen.css";
 import GrupoAvatar from "./GrupoAvatar";
 import { PlusIcon } from "../icons/PlusIcon";
 
-function TopHeadImage(props) {
+function  TopHeadImage(props) {
   console.log(props.infoList.avatarList)
   let avatars
   if(props.infoList.avatarList){
     avatars = <GrupoAvatar usuarios={props.infoList.avatarList} size={"md"} />
+  }
+  
+  const otrafun = (option) =>{
+    props.cambiarInfo(option)
   }
     return (
     <div>
       <section>
         <Grid.Container gap={0} justify="center" style={{ padding: "10px" }}>
           <Grid xs={12}>
-            <TopHeadOptions />
+            <TopHeadOptions otrafun={otrafun}/>
           </Grid>
           <Grid xs={12}>
             <Text h2>{props.infoList.nombre}</Text>

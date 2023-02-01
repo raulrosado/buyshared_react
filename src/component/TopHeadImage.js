@@ -6,19 +6,23 @@ import GrupoAvatar from "./GrupoAvatar";
 import { PlusIcon } from "../icons/PlusIcon";
 import config from '../config/config';
 
-function TopHeadImage(props) {
+function  TopHeadImage(props) {
   const pictureUsers = props.infoList.avatar;
   let avatars;
   if(pictureUsers !== undefined){
     avatars =<GrupoAvatar usuarios={pictureUsers} size={"md"} />
   }
   
+  const otrafun = (option) =>{
+    props.cambiarInfo(option)
+  }
+
   return (
     <div>
       <section className="imgBackground" style={{backgroundImage: `url(${config.URL}images/${props.infoList.bg})`}}>
         <Grid.Container gap={0} justify="center" style={{ padding: "10px" }}>
           <Grid xs={12}>
-            <TopHeadOptions />
+            <TopHeadOptions otrafun={otrafun}/>
           </Grid>
           <Spacer y={10} />
           <Grid xs={12}>

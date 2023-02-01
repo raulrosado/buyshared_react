@@ -17,6 +17,9 @@ function Detalles() {
   const [loading, setLoading] = useState(false);
   const [loadingList, setLoadingList] = useState(false);
 
+  const cambiarInfo = (option)=>{
+    setLoadingList(option);
+  }
 
   let config = {
     headers: {
@@ -44,7 +47,7 @@ function Detalles() {
 
   return (
     <div>
-      {detail ? (<TopHeadImage2 infoList={detail}/>) : null}
+      {detail ? (<TopHeadImage2 infoList={detail} cambiarInfo={cambiarInfo}/>) : null}
       {tasks.map((infoTask, i) => (
         <Task info={infoTask} key={i}/>
       ))}

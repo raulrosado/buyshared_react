@@ -1,5 +1,5 @@
-import React from "react";
-import { Avatar, Button, Dropdown, Grid, Text, Row } from "@nextui-org/react";
+import React, {useState} from "react";
+import { Avatar, Button, Dropdown, Grid, Text, Loading } from "@nextui-org/react";
 import { LeftArroy } from "../icons/LeftArroy";
 import { PlusIcon } from "../icons/PlusIcon";
 import { Personplus } from "../icons/Personplus";
@@ -12,9 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postAddTask } from "../api/postAddTask";
 
-function TopHeadOptions() {
+function TopHeadOptions(props) {
   const [visible, setVisible] = React.useState(false);
   const handler = () => setVisible(true);
+  const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user);
   const closeHandler = () => {
     setVisible(false);
@@ -26,15 +27,29 @@ function TopHeadOptions() {
     },
   };
 
+  const avisarAlPadre = (option) => {
+    props.otrafun(option)
+  }
+
+  let botton;
+  if (loading) {
+    botton = <Loading type="points" color="currentColor" size="sm" />
+  }else{
+    botton = <Text color="white">Agregar</Text>;
+  }
+
   const addTask = () => {
+    setLoading(true)
     const parametro = {
       task : document.getElementById("taskTexto").value,
       idEvent:user.idEvent,
       idList:user.idList
     }
-    console.log(parametro);
+    
     postAddTask(parametro,config).then((res) =>{
-      console.log('se envio');
+      setLoading(false)
+      closeHandler();
+      avisarAlPadre(false);
     })
   }
 
@@ -123,7 +138,7 @@ function TopHeadOptions() {
             Close
           </Button>
           <Button auto onPress={addTask}>
-            Agregar
+            {botton}
           </Button>
         </Modal.Footer>
       </Modal>

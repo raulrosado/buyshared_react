@@ -17,12 +17,16 @@ function DetallesEventos(){
     const [loading, setLoading] = useState(false);
     const [loadingList, setLoadingList] = useState(false);
 
-
   let config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
   };
+
+  const cambiarInfo = (option)=>{
+    setLoadingList(option);
+  }
+
   useEffect(() => {
     if (!loadingList) {
       setLoading(true);
@@ -44,7 +48,7 @@ function DetallesEventos(){
 
     return (
       <div>
-          {detail ? (<TopHeadImage infoList={detail}/>) : null}
+          {detail ? (<TopHeadImage infoList={detail} cambiarInfo={cambiarInfo}/>) : null}
           
           {tasks.map((infoTask, i) => (
               <Task info={infoTask} key={i}/>
