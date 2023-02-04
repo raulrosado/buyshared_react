@@ -19,6 +19,7 @@ import { Input, Checkbox } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postAddTask } from "../api/postAddTask";
+import { postSendInvitacion } from "../api/postSendInvitacion";
 import ModalCreado from "./ModalCreado";
 
 function TopHeadOptions(props) {
@@ -64,7 +65,16 @@ function TopHeadOptions(props) {
   };
 
   const addFriend = () => {
-    alert("firend");
+    setLoading(true);
+    const parametro = {
+      email: document.getElementById("txtAddFriend").value,
+      idEvent: user.idEvent,
+      idList: user.idList,
+    };
+    postSendInvitacion(parametro, config).then((res) => {
+      setLoading(false);
+      closeHandler();
+    });
   };
 
   const [selected, setSelected] = React.useState(new Set(["rilo"]));
