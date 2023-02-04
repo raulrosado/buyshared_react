@@ -1,26 +1,37 @@
-import React, {useState} from "react";
-import { Avatar, Button, Dropdown, Grid, Text, Loading } from "@nextui-org/react";
+import React, { useState } from "react";
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  Grid,
+  Text,
+  Loading,
+} from "@nextui-org/react";
 import { LeftArroy } from "../icons/LeftArroy";
 import { PlusIcon } from "../icons/PlusIcon";
+import { Mail } from "../icons/Mail";
 import { Personplus } from "../icons/Personplus";
 import { Productoimg } from "../icons/Productoimg";
 import { DeleteDocumentIcon } from "../icons/DeleteDocumentIcon";
 import { Dotsverticalround } from "../icons/Dotsverticalround";
 import { Link } from "react-router-dom";
-import { Modal, Input, Checkbox } from "@nextui-org/react";
+import { Input, Checkbox } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postAddTask } from "../api/postAddTask";
+import ModalCreado from "./ModalCreado";
 
 function TopHeadOptions(props) {
   const [visible, setVisible] = React.useState(false);
+  const [visible2, setVisible2] = React.useState(false);
   const handler = () => setVisible(true);
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user);
   const closeHandler = () => {
     setVisible(false);
+    setVisible2(false);
   };
-  
+
   let config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
@@ -28,33 +39,48 @@ function TopHeadOptions(props) {
   };
 
   const avisarAlPadre = (option) => {
-    props.otrafun(option)
-  }
+    props.otrafun(option);
+  };
 
   let botton;
   if (loading) {
-    botton = <Loading type="points" color="currentColor" size="sm" />
-  }else{
+    botton = <Loading type="points" color="currentColor" size="sm" />;
+  } else {
     botton = <Text color="white">Agregar</Text>;
   }
 
   const addTask = () => {
-    setLoading(true)
+    setLoading(true);
     const parametro = {
-      task : document.getElementById("taskTexto").value,
-      idEvent:user.idEvent,
-      idList:user.idList
-    }
-    
-    postAddTask(parametro,config).then((res) =>{
-      setLoading(false)
+      task: document.getElementById("taskTexto").value,
+      idEvent: user.idEvent,
+      idList: user.idList,
+    };
+    postAddTask(parametro, config).then((res) => {
+      setLoading(false);
       closeHandler();
       avisarAlPadre(false);
-    })
+    });
+  };
+
+  const addFriend = () => {
+    alert("firend");
+  };
+
+  const [selected, setSelected] = React.useState(new Set(["rilo"]));
+  const selectedValue = React.useMemo(
+    () => Array.from(selected).join(", ").replaceAll("_", " "),
+    [selected]
+  );
+
+  let ModelContenido;
+  if (selected.anchorKey === "newFriend") {
+    setSelected("na");
+    setVisible2(true);
   }
 
   return (
-    <div style={{width:'100%'}}>
+    <div style={{ width: "100%" }}>
       <Grid.Container gap={0} justify="center">
         <Grid xs={4} justify="flex-start">
           <Link to="/main">
@@ -87,18 +113,18 @@ function TopHeadOptions(props) {
                 icon={<Dotsverticalround fill="currentColor" filled />}
               />
             </Dropdown.Trigger>
-            <Dropdown.Menu color="secondary" aria-label="Avatar Actions">
-                <Dropdown.Item
-                  key="new"
-                  command="⌘N"
-                >
-                  Agregar Amigo
-                </Dropdown.Item>
-                <Dropdown.Item
+            <Dropdown.Menu
+              color="secondary"
+              aria-label="Avatar Actions"
+              selectionMode="single"
+              selectedKeys={selected}
+              onSelectionChange={setSelected}
+            >
+              <Dropdown.Item key="newFriend">Agregar Amigo</Dropdown.Item>
+              <Dropdown.Item
                 withDivider
-                key="delete"
+                key="deleteTask"
                 color="error"
-                command="⌘⇧D"
                 description="Eliminar permanentemente la lista"
                 icon={<DeleteDocumentIcon size={22} fill="currentColor" />}
               >
@@ -108,40 +134,44 @@ function TopHeadOptions(props) {
           </Dropdown>
         </Grid>
       </Grid.Container>
-
-      <Modal
-        closeButton
-        blur
-        aria-labelledby="modal-title"
-        open={visible}
-        onClose={closeHandler}
+      <ModalCreado
+        botton={botton}
+        function={addTask}
+        visible={visible}
+        closeHandler={closeHandler}
+        title="Agregar articulo"
       >
-        <Modal.Header>
-          <Text id="modal-title" size={18}>
-            Agregar articulo
-          </Text>
-        </Modal.Header>
-        <Modal.Body>
-          <Input
-            id="taskTexto"
-            clearable
-            bordered
-            fullWidth
-            color="primary"
-            size="lg"
-            placeholder="Articulo"
-            contentLeft={<Productoimg fill="currentColor" />}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button auto flat color="error" onPress={closeHandler}>
-            Close
-          </Button>
-          <Button auto onPress={addTask}>
-            {botton}
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        <Input
+          id="taskTexto"
+          clearable
+          bordered
+          fullWidth
+          color="primary"
+          size="lg"
+          placeholder="Articulo"
+          contentLeft={<Productoimg fill="currentColor" />}
+        />
+      </ModalCreado>
+      <ModalCreado
+        botton={botton}
+        function={addFriend}
+        visible={visible2}
+        closeHandler={closeHandler}
+        title="Agregar Amigo"
+      >
+        <Text>Se le enviara un email con la invitacion a esta lista</Text>
+        <Input
+          id="txtAddFriend"
+          type="email"
+          clearable
+          bordered
+          fullWidth
+          color="primary"
+          size="lg"
+          placeholder="Correo electronico"
+          contentLeft={<Mail fill="currentColor" />}
+        />
+      </ModalCreado>
     </div>
   );
 }
