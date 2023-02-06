@@ -1,13 +1,18 @@
 import React from "react";
 import TopHeadOptions from "./TopHeadOptions";
-import { Avatar, Grid, Spacer, Text,Card } from "@nextui-org/react";
+import { Avatar, Grid, Spacer, Text,Card,Button } from "@nextui-org/react";
 import "./css/topHeadImagen.css";
 import GrupoAvatar from "./GrupoAvatar";
 import { PlusIcon } from "../icons/PlusIcon";
 import config from '../config/config';
+import { useDispatch, useSelector } from "react-redux";
+import { setShowModal } from "../actions";
+
 
 function  TopHeadImage(props) {
   const pictureUsers = props.infoList.avatar;
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   let avatars;
   if(pictureUsers !== undefined){
     avatars =<GrupoAvatar usuarios={pictureUsers} size={"md"} />
@@ -22,7 +27,7 @@ function  TopHeadImage(props) {
       <section className="imgBackground" style={{backgroundImage: `url(${config.URL}images/${props.infoList.bg})`}}>
         <Grid.Container gap={0} justify="center" style={{ padding: "10px" }}>
           <Grid xs={12}>
-            <TopHeadOptions otrafun={otrafun}/>
+            <TopHeadOptions otrafun={otrafun} />
           </Grid>
           <Spacer y={10} />
           <Grid xs={12}>
@@ -36,16 +41,17 @@ function  TopHeadImage(props) {
               </Text>
               <Grid xs={12} className="headMiembros">
                 <Grid xs={6} style={{ padding: "10px" }}>
-                {/* pictureUsers.length > 0 ? () : null  */}
                   {avatars}
                 </Grid>
                 <Grid xs={6} justify="flex-end" style={{ padding: "10px" }}>
-                  <Avatar
-                    bordered
-                    size="md"
-                    as="button"
-                    icon={<PlusIcon fill="currentColor" filled />}
-                  />
+                  {/* <Button onPress={showAddFModela}>
+                    <Avatar
+                      bordered
+                      size="md"
+                      as="button"
+                      icon={<PlusIcon fill="currentColor" filled />}
+                    />
+                  </Button> */}
                 </Grid>
               </Grid>
             </Card.Body>

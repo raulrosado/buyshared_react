@@ -19,8 +19,11 @@ import { Input, Checkbox } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postAddTask } from "../api/postAddTask";
+import { delEvent } from "../api/delEvent";
+import { delList } from "../api/delList";
 import { postSendInvitacion } from "../api/postSendInvitacion";
 import ModalCreado from "./ModalCreado";
+import { setShowModal } from "../actions";
 
 function TopHeadOptions(props) {
   const [visible, setVisible] = React.useState(false);
@@ -28,6 +31,7 @@ function TopHeadOptions(props) {
   const handler = () => setVisible(true);
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const closeHandler = () => {
     setVisible(false);
     setVisible2(false);
@@ -87,6 +91,18 @@ function TopHeadOptions(props) {
   if (selected.anchorKey === "newFriend") {
     setSelected("na");
     setVisible2(true);
+  }
+  if (selected.anchorKey === "deleteTask") {
+    setSelected("na");
+    if (user.idList === 0) {
+      delEvent( user.idEvent, config).then((res) => {
+        console.log('elimino evento')
+      })
+    }else{
+      delList(user.idList, config).then((res) => {
+        console.log('elimino lista')
+      }) 
+    }
   }
 
   return (

@@ -22,10 +22,12 @@ export default function CardEvent(props) {
                       objectFit="cover"
                       width="100%"
                       height={140}
-                      alt={item.title}
+                      alt={item.nombre}
                     />
+                    <div style={{paddingLeft:'10px'}}><Text b>{item.nombre}</Text></div>
                   </Card.Body>
                   <Card.Footer css={{ justifyItems: "flex-start" }}>
+                    
                     <Row wrap="wrap" justify="space-between" align="center">
                       <Grid xs={12} style={{padding:'3px'}}>
                         <GrupoAvatar usuarios={pictureUsers[index]} size={"sm"}/>

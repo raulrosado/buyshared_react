@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getDetailEvent } from "../api/getDetailEvent";
 import { setEvent, setList } from "../actions";
+import { setShowModal } from "../actions";
 
 function DetallesEventos(){
     const params = useParams();

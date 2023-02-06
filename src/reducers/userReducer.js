@@ -1,7 +1,7 @@
-import { SET_USER,SEL_EVENT,SEL_LIST } from "../actions/type";
+import { SET_USER,SEL_EVENT,SEL_LIST,SHOW_MODAL } from "../actions/type";
 
 const initialState ={
-    user:[]
+    user:[]    
 };
 
 const userReducer = (state = initialState, action) => {
@@ -16,6 +16,10 @@ const userReducer = (state = initialState, action) => {
       const antiguoList = {...state.user}
       antiguoList.idList = action.payload
       return { ...state, user:antiguoList};
+    case SHOW_MODAL:
+      const showM = {...state.user}
+      showM.showModal = action.payload
+      return { ...state, user: showM };
     default:
       return { ...state };
   }
