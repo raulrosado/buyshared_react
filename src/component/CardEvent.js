@@ -17,13 +17,10 @@ export default function CardEvent(props) {
 
   useEffect(() => {
     if(eventsState !== undefined){
-      console.log('eventos dentro:'+eventsState)
       setlistEvents(eventsState)
       setPictureUsers(eventsStateAvatar)
     }
   }, [eventsState])
-
-  console.log(pictureUsers)
 
     return (
       <div>
@@ -48,7 +45,6 @@ export default function CardEvent(props) {
                     <Row wrap="wrap" justify="space-between" align="center">
                       <Grid xs={12} style={{padding:'3px'}}>
                         {pictureUsers.length > 0 ? (<GrupoAvatar usuarios={pictureUsers[index]} size={"sm"}/>) : null }
-                        
                       </Grid>
                       <Text
                          css={{

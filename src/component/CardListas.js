@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Grid,Text } from "@nextui-org/react";
 import GrupoAvatar from './GrupoAvatar';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CardListas(props) {
-    const pictureUsers = props.avatares;
+  const dispatch = useDispatch();
+  const [listsAvatares, setListsAvatares] = useState([]);
+  
+  useEffect(() => {
+    if(props.avatares !== undefined){
+      setListsAvatares(props.avatares)
+    }
+  }, [listsAvatares])
 
   return (
     <div>
@@ -23,7 +31,7 @@ export default function CardListas(props) {
                             <Text css={{ color: "$accents8" }}>{props.infoList.cant} articulos</Text>
                         </Grid>
                     </Grid.Container>
-                    <GrupoAvatar usuarios={pictureUsers} size={"sm"}/>
+                    <GrupoAvatar usuarios={listsAvatares} size={"sm"}/>
                 </Card.Header>
               </Link>
             </Card>

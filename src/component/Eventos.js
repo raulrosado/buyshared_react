@@ -38,7 +38,7 @@ function Eventos() {
       getList(user.user._id, config).then((res) => {
         //cargo el array de imagenes
         let respuesta = res.data[res.data.length - 1]
-        setListsAvatares(res.data[res.data.length - 1]);
+        setListsAvatares(respuesta);
         //elimino el ultimo elemento del array pq son las imagenes
         let listsMenos = res.data
         listsMenos.pop();
@@ -54,7 +54,7 @@ function Eventos() {
       getEvent(user.user._id, config).then((res) => {
         //cargo el array de imagenes
         let respuesta = res.data[res.data.length - 1]
-        setListsAvataresEvent(res.data[res.data.length - 1]);
+        setListsAvataresEvent(respuesta);
         //elimino el ultimo elemento del array pq son las imagenes
         let listsMenos = res.data
         listsMenos.pop();
@@ -69,19 +69,18 @@ function Eventos() {
 
     useEffect(() => {
     if(listsState !== undefined){
-      
-      dispatch(addListsAvatar(listsAvatares))
+      // dispatch(addListsAvatar(listsAvatares))
       setLists(listsState);
-      // setListsAvatares(listsStateAvatar)
+      setListsAvatares(listsStateAvatar)
     }
   }, [listsAvatares])
 
   useEffect(() => {
     if(listsState !== undefined){
       
-      dispatch(addEventsAvatar(listsAvataresEvent))
+      // dispatch(addEventsAvatar(listsAvataresEvent))
       setListsEvent(eventsState);
-      // setListsAvataresEvent(eventsStateAvatar)
+      setListsAvataresEvent(eventsStateAvatar)
     }
   }, [listsAvataresEvent])
 
