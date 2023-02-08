@@ -64,9 +64,9 @@ function TopHeadOptions(props) {
     };
     postAddTask(parametro, config).then((res) => {
       setLoading(false);
-      closeHandler();
+      console.log(res.data)
       dispatch(addTaskState(res.data))
-      // avisarAlPadre(false);
+      closeHandler();
     });
   };
 

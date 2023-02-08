@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Text, Loading,Spacer,Badge } from "@nextui-org/react";
+import { Text, Loading, Spacer, Badge } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
 import TopHeadImage2 from "../component/TopHeadImage2";
 import Task from "../component/Task";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getDetailList } from "../api/getDetailList";
-import { setEvent, setList } from "../actions";
+import { setEvent, setList, addTasksState } from "../actions";
 
 function Detalles() {
   const params = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const listsState = useSelector(state => state.user.lists);
-  
+  const listTasks = useSelector(state => state.user.tasks);
+
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingList, setLoadingList] = useState(false);
 
-  const cambiarInfo = (option)=>{
+  const cambiarInfo = (option) => {
     setLoadingList(option);
   }
 
@@ -27,18 +27,29 @@ function Detalles() {
       Authorization: `Bearer ${user.token}`,
     },
   };
+
+  useEffect(() => {
+    if (listTasks !== undefined) {
+      setTasks(listTasks)
+    }
+  }, [listTasks])
+
   useEffect(() => {
     if (!loadingList) {
       setLoading(true);
       getDetailList(params.id, config).then((res) => {
         setTasks(res.data.tasks)
+        if (res.data.tasks !== undefined) {
+          dispatch(addTasksState(res.data.tasks))
+        }
         dispatch(setEvent(0))
         dispatch(setList(params.id))
         setLoading(false);
         setLoadingList(true);
       });
     }
-  });
+  }, []);
+
 
   let loadingCond;
   if (loading) {
@@ -47,10 +58,10 @@ function Detalles() {
 
   return (
     <div>
-      <TopHeadImage2 cambiarInfo={cambiarInfo}/>
-      {tasks.map((infoTask, i) => (
-        <Task info={infoTask} key={i}/>
-      ))}
+      <TopHeadImage2 cambiarInfo={cambiarInfo} />
+      {tasks.length > 0 ? (tasks.map((infoTask, i) => (
+        <Task info={infoTask} key={i} />
+      ))):<Text>Nada</Text>}
       {tasks.length === 0 ? (<div><Spacer y={1} /><Badge color="secondary">Agregue una tarea</Badge></div>) : null}
       {loadingCond}
     </div>

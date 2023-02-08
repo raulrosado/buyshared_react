@@ -55,22 +55,21 @@ const userReducer = (state = initialState, action) => {
     case DEL_EVENT:
       const antiguoEventState= {...state.user}
       let indice2 = antiguoEventState.events.findIndex(elem => elem._id === action.payload);
-      console.log(indice2)
       if(indice2 >= 0){
         let newArray2 = antiguoEventState.events.filter(elem => elem._id !== action.payload);
-        console.log(newArray2)
         antiguoEventState.events = newArray2
       }
       return { ...state, user: antiguoEventState };
     
     case ADD_TASK:
       const antiguoStateTask = {...state.user}
-      antiguoStateTask.tasks.push(action.payload)
+      console.log(antiguoStateTask.tasks)
+      antiguoStateTask.tasks = antiguoStateTask.tasks.concat(action.payload);
       return { ...state, user: antiguoStateTask };
       
     case ADD_TASKS:
       const tateTasks = {...state.user}
-      tateTasks.tasks.push(action.payload)
+      tateTasks.tasks = action.payload
       return { ...state, user: tateTasks };
 
     default:
