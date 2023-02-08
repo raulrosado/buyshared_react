@@ -8,3 +8,4 @@ export const ADD_LISTS = 'ADD_LISTS';
 export const ADD_LISTSAVATARS = 'ADD_LISTSAVATARS';
 export const DEL_LIST= 'DEL_LIST';
 export const DEL_EVENT= 'DEL_EVENT';
+export const ADD_TASK= 'ADD_TASK';

@@ -1,4 +1,4 @@
-import { SET_USER,SEL_EVENT,SEL_LIST,SHOW_MODAL,ADD_LISTS,ADD_EVENTS,ADD_EVENTSAVATARS,ADD_LISTSAVATARS,DEL_LIST,DEL_EVENT } from "../actions/type";
+import { SET_USER,SEL_EVENT,SEL_LIST,SHOW_MODAL,ADD_LISTS,ADD_EVENTS,ADD_EVENTSAVATARS,ADD_LISTSAVATARS,DEL_LIST,DEL_EVENT,ADD_TASK } from "../actions/type";
 
 const initialState ={
     user:[]    
@@ -62,6 +62,11 @@ const userReducer = (state = initialState, action) => {
         antiguoEventState.events = newArray2
       }
       return { ...state, user: antiguoEventState };
+    
+    case ADD_TASK:
+      const antiguoStateTask = {...state.user}
+      antiguoStateTask.lists.push(action.payload)
+      return { ...state, user: antiguoStateTask };
 
     default:
       return { ...state };

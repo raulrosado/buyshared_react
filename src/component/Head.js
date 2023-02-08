@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from "react-redux";
 import {
   Text,
   Avatar,
@@ -14,20 +15,20 @@ import {
 import { MenuIcon } from "../icons/MenuIcon";
 import { PlusIcon } from "../icons/PlusIcon";
 import { Listplus } from "../icons/Listplus";
-import { useSelector } from "react-redux";
 import config from '../config/config';
 import { AddNoteIcon } from "../icons/AddNoteIcon.js"
 import { EditDocumentIcon } from "../icons/EditDocumentIcon.js"
 import { postList } from "../api/postList";
 import { postEvent } from "../api/postEvent";
+import { addLists, addEvents, addListsAvatar, addEventsAvatar } from '../actions';
 
 function Head() {
+  const dispatch = useDispatch();
   const [visible, setVisible] = React.useState(false);
-
   const [selected2, setSelected2] = React.useState(new Set(["text"]));
   const [event, setEvent] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const user = useSelector(state => state.user);
+  const appState = useSelector(state => state.user);
   const handler = () => setVisible(true);
   const closeHandler = () => {
     setVisible(false);
@@ -37,7 +38,7 @@ function Head() {
 
   let header = {
     headers: {
-      Authorization : `Bearer ${user.token}`
+      Authorization : `Bearer ${appState.token}`
     }
   }
   let PostList;
@@ -45,7 +46,7 @@ function Head() {
   if(event){
     header = {
       headers: {
-        Authorization : `Bearer ${user.token}`,
+        Authorization : `Bearer ${appState.token}`,
         "Content-Type": "multipart/form-data"
       }
     }
@@ -74,14 +75,6 @@ function Head() {
     }
   }
 
-  //` if(seleccionado !== selected2.anchorKey){
-  //   if(selected2.anchorKey === "add_list"){
-  //     setVisible(true);
-  //     console.log(selected2.anchorKey)
-  //     alert('loco');
-  //     setSelecionado(selected2.anchorKey)
-  //   }
-  // }.`
   const evento = (e) => {
     setEvent(e.target.checked);
   }
@@ -102,9 +95,9 @@ function Head() {
             as="button"
             size="lg"
             color="primary"
-            name={user.user.name}
-            description={user.user.apellidos}
-            src={config.URL+"images/"+user.user.avatar}
+            name={appState.user.name}
+            description={appState.user.apellidos}
+            src={config.URL+"images/"+appState.user.avatar}
           />
         </Grid>
         <Grid xs={4} justify="flex-end">
@@ -133,7 +126,7 @@ function Head() {
                   Signed in as
                 </Text>
                 <Text b color="inherit" css={{ d: "flex" }}>
-                  {user.user.email}
+                  {appState.user.email}
                 </Text>
               </Dropdown.Item>
               <Dropdown.Item key="settings" withDivider>

@@ -23,7 +23,7 @@ import { delEvent } from "../api/delEvent";
 import { delList } from "../api/delList";
 import { postSendInvitacion } from "../api/postSendInvitacion";
 import ModalCreado from "./ModalCreado";
-import { delEventAction,delListAction } from "../actions";
+import { delEventAction,delListAction,addTaskState } from "../actions";
 
 function TopHeadOptions(props) {
   const [visible, setVisible] = React.useState(false);
@@ -65,7 +65,8 @@ function TopHeadOptions(props) {
     postAddTask(parametro, config).then((res) => {
       setLoading(false);
       closeHandler();
-      avisarAlPadre(false);
+      dispatch(addTaskState(res.data))
+      // avisarAlPadre(false);
     });
   };
 

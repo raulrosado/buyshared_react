@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from "react-redux";
 import { Text, Loading } from "@nextui-org/react";
 import CardEvent from './CardEvent';
 import CardListas from './CardListas';
 import { getList } from '../api/getList';
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getEvent } from '../api/getEvent';
 import { addLists, addEvents, addListsAvatar, addEventsAvatar } from '../actions';
