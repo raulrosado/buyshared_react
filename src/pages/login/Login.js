@@ -16,42 +16,57 @@ import { useNavigate  } from "react-router-dom";
 import axios from "axios";
 import { setUser } from "../../actions";
 import { useDispatch,useSelector } from "react-redux";
+import { postLogin } from "../../api/postLogin";
 
 
 function Login() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
-
 
   const login = () => {
     if (!loading) {
       setLoading(true)
-      axios({
-        method: "POST",
-        url: "http://localhost:5000/v1/api/login",
-        data: {
-          email: document.getElementById("email").value,
-          password: document.getElementById("password").value,
-        },
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        }
-      })
-        .then(function (response) {
-          console.log(response);
+      const parametro = {
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+      };
+
+      postLogin(parametro).then((response)=>{
+        console.log(response);
           setLoading(false)
           dispatch(setUser(response.data))
           navigate('/main');
-        })
-        .catch(function (error) {
-          console.log(error);
-          alert(error);
-          setLoading(false)
-        });
+      }).catch(function (error) {
+        console.log(error);
+        alert(error);
+        setLoading(false)
+      });
+
+      // axios({
+      //   method: "POST",
+      //   url: "http://localhost:5000/v1/api/login",
+      //   data: {
+      //     email: document.getElementById("email").value,
+      //     password: document.getElementById("password").value,
+      //   },
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "Accept": "application/json",
+      //   }
+      // })
+      //   .then(function (response) {
+      //     console.log(response);
+      //     setLoading(false)
+      //     dispatch(setUser(response.data))
+      //     navigate('/main');
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //     alert(error);
+      //     setLoading(false)
+      //   });
     }
   };
 

@@ -23,7 +23,7 @@ import { delEvent } from "../api/delEvent";
 import { delList } from "../api/delList";
 import { postSendInvitacion } from "../api/postSendInvitacion";
 import ModalCreado from "./ModalCreado";
-import { setShowModal } from "../actions";
+import { delEventAction,delListAction } from "../actions";
 
 function TopHeadOptions(props) {
   const [visible, setVisible] = React.useState(false);
@@ -32,6 +32,7 @@ function TopHeadOptions(props) {
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const closeHandler = () => {
     setVisible(false);
     setVisible2(false);
@@ -95,14 +96,17 @@ function TopHeadOptions(props) {
   if (selected.anchorKey === "deleteTask") {
     setSelected("na");
     if (user.idList === 0) {
+      dispatch(delEventAction(user.idEvent));
       delEvent( user.idEvent, config).then((res) => {
         console.log('elimino evento')
       })
     }else{
+      dispatch(delListAction(user.idList));
       delList(user.idList, config).then((res) => {
         console.log('elimino lista')
       }) 
     }
+    navigate('/main');
   }
 
   return (

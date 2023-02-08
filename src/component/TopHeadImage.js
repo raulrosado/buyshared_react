@@ -44,14 +44,7 @@ function  TopHeadImage(props) {
                   {avatars}
                 </Grid>
                 <Grid xs={6} justify="flex-end" style={{ padding: "10px" }}>
-                  {/* <Button onPress={showAddFModela}>
-                    <Avatar
-                      bordered
-                      size="md"
-                      as="button"
-                      icon={<PlusIcon fill="currentColor" filled />}
-                    />
-                  </Button> */}
+                
                 </Grid>
               </Grid>
             </Card.Body>

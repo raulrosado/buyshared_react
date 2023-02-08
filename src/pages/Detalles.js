@@ -12,7 +12,7 @@ function Detalles() {
   const params = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const [detail, setDetail] = useState([]);
+  
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingList, setLoadingList] = useState(false);
@@ -30,7 +30,6 @@ function Detalles() {
     if (!loadingList) {
       setLoading(true);
       getDetailList(params.id, config).then((res) => {
-        setDetail(res.data);
         setTasks(res.data.tasks)
         dispatch(setEvent(0))
         dispatch(setList(params.id))
@@ -47,7 +46,7 @@ function Detalles() {
 
   return (
     <div>
-      {detail ? (<TopHeadImage2 infoList={detail} cambiarInfo={cambiarInfo}/>) : null}
+      <TopHeadImage2 cambiarInfo={cambiarInfo}/>
       {tasks.map((infoTask, i) => (
         <Task info={infoTask} key={i}/>
       ))}

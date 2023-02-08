@@ -1,18 +1,35 @@
-import React, { Component } from "react";
-import { Container, Row, Text, Col, Avatar } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import { Row, Text } from "@nextui-org/react";
 import { Card, Grid, Progress } from "@nextui-org/react";
 import GrupoAvatar from "./GrupoAvatar";
 import config from '../config/config';
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CardEvent(props) {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+  const eventsState = useSelector(state => state.user.events);
+  const eventsStateAvatar = useSelector(state => state.user.eventsAvatars);
+  
+  const [listEvents, setlistEvents] = useState([]);
+  const [pictureUsers, setPictureUsers] = useState([]);
 
-    const pictureUsers = props.avatares;
+  useEffect(() => {
+    if(eventsState !== undefined){
+      console.log('eventos dentro:'+eventsState)
+      setlistEvents(eventsState)
+      setPictureUsers(eventsStateAvatar)
+    }
+  }, [eventsState])
+
+  console.log(pictureUsers)
+
     return (
       <div>
         <section style={{padding:'10px'}}>
           <Grid.Container gap={0} justify="flex-start">
-            {props.infoList.map((item, index) => (
+            {listEvents.map((item, index) => (
               <Grid xs={6} sm={3} key={index} style={{padding:'5px'}}>
                 <Link to={`../detallesEventos/${item._id}`} key={index}>
                 <Card isPressable>
@@ -30,7 +47,8 @@ export default function CardEvent(props) {
                     
                     <Row wrap="wrap" justify="space-between" align="center">
                       <Grid xs={12} style={{padding:'3px'}}>
-                        <GrupoAvatar usuarios={pictureUsers[index]} size={"sm"}/>
+                        {pictureUsers.length > 0 ? (<GrupoAvatar usuarios={pictureUsers[index]} size={"sm"}/>) : null }
+                        
                       </Grid>
                       <Text
                          css={{
