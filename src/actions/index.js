@@ -1,4 +1,4 @@
-import { SET_USER,SEL_EVENT,SEL_LIST,SHOW_MODAL,ADD_LISTS,ADD_EVENTS,ADD_EVENTSAVATARS,ADD_LISTSAVATARS,DEL_LIST,DEL_EVENT,ADD_TASK } from "./type";
+import { SET_USER,SEL_EVENT,SEL_LIST,SHOW_MODAL,ADD_LISTS,ADD_EVENTS,ADD_EVENTSAVATARS,ADD_LISTSAVATARS,DEL_LIST,DEL_EVENT,ADD_TASK,ADD_TASKS } from "./type";
 
 export const setUser = (payload) =>({
     type:SET_USER,
@@ -42,5 +42,9 @@ export const delEventAction = (payload) =>({
 })
 export const addTaskState = (payload) =>({
     type:ADD_TASK,
+    payload,
+})
+export const addTasksState = (payload) =>({
+    type:ADD_TASKS,
     payload,
 })

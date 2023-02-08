@@ -12,6 +12,7 @@ function Detalles() {
   const params = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const listsState = useSelector(state => state.user.lists);
   
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
