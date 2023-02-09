@@ -1,4 +1,5 @@
 import { SET_USER,SEL_EVENT,SEL_LIST,SHOW_MODAL,ADD_LISTS,ADD_EVENTS,ADD_EVENTSAVATARS,ADD_LISTSAVATARS,DEL_LIST,DEL_EVENT,ADD_TASK,ADD_TASKS } from "../actions/type";
+import { DEL_TASK } from "../actions/type";
 
 const initialState ={
     user:[]    
@@ -49,7 +50,6 @@ const userReducer = (state = initialState, action) => {
         console.log(newArray)
         antiguoListState.lists = newArray
       }
-      
       return { ...state, user: antiguoListState};
 
     case DEL_EVENT:
@@ -63,7 +63,6 @@ const userReducer = (state = initialState, action) => {
     
     case ADD_TASK:
       const antiguoStateTask = {...state.user}
-      console.log(antiguoStateTask.tasks)
       antiguoStateTask.tasks = antiguoStateTask.tasks.concat(action.payload);
       return { ...state, user: antiguoStateTask };
       
@@ -72,6 +71,11 @@ const userReducer = (state = initialState, action) => {
       tateTasks.tasks = action.payload
       return { ...state, user: tateTasks };
 
+      case DEL_TASK:
+        const antiguoTaskStateToDel= {...state.user}
+        let newArrayTask = antiguoTaskStateToDel.tasks.filter(elem => elem._id !== action.payload);
+        antiguoTaskStateToDel.events = newArrayTask
+        return { ...state, user: antiguoTaskStateToDel };
     default:
       return { ...state };
   }

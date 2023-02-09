@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import TopHeadImage2 from "../component/TopHeadImage2";
 import Task from "../component/Task";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { getDetailList } from "../api/getDetailList";
 import { setEvent, setList, addTasksState } from "../actions";
 

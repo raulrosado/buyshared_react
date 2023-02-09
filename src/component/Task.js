@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Grid,
@@ -11,8 +11,11 @@ import {
 import GrupoAvatar from "./GrupoAvatar";
 import { Dotsverticalround } from "../icons/Dotsverticalround";
 import { DeleteDocumentIcon } from "../icons/DeleteDocumentIcon";
+import { useDispatch, useSelector } from "react-redux";
+import { delTasksState } from"../actions"
 
 function Task(props) {
+  const dispatch = useDispatch();
   let checkbock;
   let del;
   if(props.info.estado === 2){
@@ -21,6 +24,10 @@ function Task(props) {
   }else{
     checkbock = <Checkbox size="xl" />
     del = <Text h4 css={{ lineHeight: "$xs" }}>{props.info.texto}</Text>
+  }
+
+  const delTask = () =>{
+    alert('eliminar tarea');
   }
 
   return (
@@ -52,6 +59,7 @@ function Task(props) {
                       <Dropdown.Item
                         key="delete"
                         color="error"
+                        onClick={delTask}
                         icon={
                           <DeleteDocumentIcon size={22} fill="currentColor" />
                         }
