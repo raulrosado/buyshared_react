@@ -74,7 +74,7 @@ const userReducer = (state = initialState, action) => {
       case DEL_TASK:
         const antiguoTaskStateToDel= {...state.user}
         let newArrayTask = antiguoTaskStateToDel.tasks.filter(elem => elem._id !== action.payload);
-        antiguoTaskStateToDel.events = newArrayTask
+        antiguoTaskStateToDel.tasks = newArrayTask
         return { ...state, user: antiguoTaskStateToDel };
     default:
       return { ...state };

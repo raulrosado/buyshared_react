@@ -60,8 +60,8 @@ function Detalles() {
       <TopHeadImage2 cambiarInfo={cambiarInfo} />
       {tasks.length > 0 ? (tasks.map((infoTask, i) => (
         <Task info={infoTask} key={i} />
-      ))):<Text>Nada</Text>}
-      {tasks.length === 0 ? (<div><Spacer y={1} /><Badge color="secondary">Agregue una tarea</Badge></div>) : null}
+      ))):(<div><Spacer y={1} /><Badge color="secondary">Agregue una tarea</Badge></div>)}
+      
       {loadingCond}
     </div>
   );

@@ -4,8 +4,8 @@ import {
   Grid,
   Text,
   Checkbox,
-  Dropdown,
-  Avatar,
+  Button,
+  Loading,
   Spacer
 } from "@nextui-org/react";
 import GrupoAvatar from "./GrupoAvatar";
@@ -13,22 +13,45 @@ import { Dotsverticalround } from "../icons/Dotsverticalround";
 import { DeleteDocumentIcon } from "../icons/DeleteDocumentIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { delTasksState } from"../actions"
+import {delTask} from "../api/delTask"
 
 function Task(props) {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const [loading, setLoading] = useState(false);
+
   let checkbock;
-  let del;
+  let texto;
   if(props.info.estado === 2){
     checkbock = <Checkbox size="xl"  color="success" defaultSelected/>
-    del = <Text h4 css={{ lineHeight: "$xs" }} del>{props.info.texto}</Text>
+    texto = <Text h4 css={{ lineHeight: "$xs" }} del>{props.info.texto}</Text>
   }else{
     checkbock = <Checkbox size="xl" />
-    del = <Text h4 css={{ lineHeight: "$xs" }}>{props.info.texto}</Text>
+    texto = <Text h4 css={{ lineHeight: "$xs" }}>{props.info.texto}</Text>
+  }
+  
+  let config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
+
+  let loadingDiv;
+  if (loading) {
+    loadingDiv = <Loading color="white" size="sm"/>;
+  }else{
+    loadingDiv = <DeleteDocumentIcon size={22} fill="currentColor" />
   }
 
-  const delTask = () =>{
-    alert('eliminar tarea');
-  }
+  const delTaskFunction = () => {
+    setLoading(true)
+      delTask(props.info._id,config).then((res)=>{
+        dispatch(delTasksState(props.info._id))
+        setLoading(false)
+      })
+  };
+
+  
 
   return (
     <div style={{ padding: "10px" }}>
@@ -39,7 +62,7 @@ function Task(props) {
               <Grid xs={10}>
                 <Grid.Container>
                   <Grid xs={12} justify="flex-start">
-                    {del}
+                    {texto}
                   </Grid>
                 </Grid.Container>
               </Grid>
@@ -47,27 +70,15 @@ function Task(props) {
                 {checkbock}
                 <Spacer x={1} />
                 <div style={{alignItems:'center',display: 'flex'}}>
-                  <Dropdown placement="bottom-left" style={{marginTop:'10px'}}>
-                    <Dropdown.Trigger>
-                      <Avatar
-                        size="sm"
-                        as="button"
-                        icon={<Dotsverticalround fill="currentColor" filled />}
-                      />
-                    </Dropdown.Trigger>
-                    <Dropdown.Menu color="secondary" aria-label="Avatar Actions">
-                      <Dropdown.Item
-                        key="delete"
-                        color="error"
-                        onClick={delTask}
-                        icon={
-                          <DeleteDocumentIcon size={22} fill="currentColor" />
-                        }
-                      >
-                        Eliminar
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <Button
+                    auto
+                    color="error"
+                    style={{ marginRight: "10px" }}
+                    shadow
+                    onClick={delTaskFunction}
+                  >
+                    {loadingDiv}
+                  </Button>
                 </div>
               </Grid>
             </Grid.Container>

@@ -6,13 +6,14 @@ import Task from "../component/Task";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getDetailEvent } from "../api/getDetailEvent";
-import { setEvent, setList } from "../actions";
-import { setShowModal } from "../actions";
+import { setEvent, setList,addTasksState } from "../actions";
 
 function DetallesEventos(){
     const params = useParams();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
+    const listTasks = useSelector(state => state.user.tasks);
+
     const [detail, setDetail] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -29,11 +30,20 @@ function DetallesEventos(){
   }
 
   useEffect(() => {
+    if (listTasks !== undefined) {
+      setTasks(listTasks)
+    }
+  }, [listTasks])
+
+  useEffect(() => {
     if (!loadingList) {
       setLoading(true);
       getDetailEvent(params.id, config).then((res) => {
         setDetail(res.data);
         setTasks(res.data.task)
+        if (res.data.task !== undefined) {
+          dispatch(addTasksState(res.data.task))
+        }
         dispatch(setEvent(params.id))
         dispatch(setList(0))
         setLoading(false);
@@ -51,10 +61,9 @@ function DetallesEventos(){
       <div>
           {detail ? (<TopHeadImage infoList={detail} cambiarInfo={cambiarInfo}/>) : null}
           
-          {tasks.map((infoTask, i) => (
+          {tasks.length > 0 ? (tasks.map((infoTask, i) => (
               <Task info={infoTask} key={i}/>
-          ))}
-          {tasks.length === 0 ? (<div><Spacer y={1} /><Badge color="secondary">Agregue una tarea</Badge></div>) : null}
+          ))) : (<div><Spacer y={1} /><Badge color="secondary">Agregue una tarea</Badge></div>)}
           {loadingCond}
       </div>
     )
