@@ -12,24 +12,15 @@ import GrupoAvatar from "./GrupoAvatar";
 import { Dotsverticalround } from "../icons/Dotsverticalround";
 import { DeleteDocumentIcon } from "../icons/DeleteDocumentIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { delTasksState } from"../actions"
-import {delTask} from "../api/delTask"
+import { delTasksState } from "../actions"
+import { delTask } from "../api/delTask"
+import { postModificTask } from "../api/postModificTask"
 
 function Task(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
 
-  let checkbock;
-  let texto;
-  if(props.info.estado === 2){
-    checkbock = <Checkbox size="xl"  color="success" defaultSelected/>
-    texto = <Text h4 css={{ lineHeight: "$xs" }} del>{props.info.texto}</Text>
-  }else{
-    checkbock = <Checkbox size="xl" />
-    texto = <Text h4 css={{ lineHeight: "$xs" }}>{props.info.texto}</Text>
-  }
-  
   let config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
@@ -38,20 +29,37 @@ function Task(props) {
 
   let loadingDiv;
   if (loading) {
-    loadingDiv = <Loading color="white" size="sm"/>;
-  }else{
+    loadingDiv = <Loading color="white" size="sm" />;
+  } else {
     loadingDiv = <DeleteDocumentIcon size={22} fill="currentColor" />
   }
 
   const delTaskFunction = () => {
     setLoading(true)
-      delTask(props.info._id,config).then((res)=>{
-        dispatch(delTasksState(props.info._id))
-        setLoading(false)
-      })
+    delTask(props.info._id, config).then((res) => {
+      dispatch(delTasksState(props.info._id))
+      setLoading(false)
+    })
   };
 
-  
+  const handleCompletTaskFunction = () => {
+    postModificTask(props.info._id, config).then((res) => {
+      console.log(res)
+      // dispatch(delTasksState(props.info._id))
+    })
+  };
+
+
+  let checkbock;
+  let texto;
+  if (props.info.estado === 2) {
+    checkbock = <Checkbox size="xl" color="success" defaultSelected onChange={handleCompletTaskFunction} />
+    texto = <Text h4 css={{ lineHeight: "$xs" }} del>{props.info.texto}</Text>
+  } else {
+    checkbock = <Checkbox size="xl" onChange={handleCompletTaskFunction} />
+    texto = <Text h4 css={{ lineHeight: "$xs" }}>{props.info.texto}</Text>
+  }
+
 
   return (
     <div style={{ padding: "10px" }}>
@@ -69,7 +77,7 @@ function Task(props) {
               <Grid xs={2} justify="flex-end">
                 {checkbock}
                 <Spacer x={1} />
-                <div style={{alignItems:'center',display: 'flex'}}>
+                <div style={{ alignItems: 'center', display: 'flex' }}>
                   <Button
                     auto
                     color="error"
