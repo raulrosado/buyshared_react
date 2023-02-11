@@ -64,7 +64,6 @@ function Task(props) {
     texto = <Text h4 css={{ lineHeight: "$xs" }}>{props.info.texto}</Text>
   }
 
-
   return (
     <div style={{ padding: "10px" }}>
       <Grid.Container gap={0} justify="flex-start">

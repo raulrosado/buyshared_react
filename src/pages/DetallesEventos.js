@@ -31,7 +31,9 @@ function DetallesEventos(){
 
   useEffect(() => {
     if (listTasks !== undefined) {
-      setTasks(listTasks)
+      if(listTasks[0].id_evento === params.id){
+        setTasks(listTasks)
+      }
     }
   }, [listTasks])
 

@@ -29,7 +29,9 @@ function Detalles() {
 
   useEffect(() => {
     if (listTasks !== undefined) {
-      setTasks(listTasks)
+      if(listTasks[0].id_lista === params.id){
+        setTasks(listTasks)
+      }
     }
   }, [listTasks])
 
