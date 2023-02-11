@@ -20,7 +20,8 @@ import { AddNoteIcon } from "../icons/AddNoteIcon.js"
 import { EditDocumentIcon } from "../icons/EditDocumentIcon.js"
 import { postList } from "../api/postList";
 import { postEvent } from "../api/postEvent";
-import { addLists, addEvents, addListsAvatar, addEventsAvatar } from '../actions';
+import { logoutProfil } from '../actions';
+import { useNavigate } from "react-router-dom";
 
 function Head() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function Head() {
   const [loading, setLoading] = React.useState(false);
   const appState = useSelector(state => state.user);
   const handler = () => setVisible(true);
+  const navigate = useNavigate();
   const closeHandler = () => {
     setVisible(false);
   };
@@ -75,6 +77,20 @@ function Head() {
     }
   }
 
+  const [selected, setSelected] = React.useState(new Set(["rilo"]));
+  const selectedValue = React.useMemo(
+    () => Array.from(selected).join(", ").replaceAll("_", " "),
+    [selected]
+  );
+
+  if (selected.anchorKey === "logout") {
+    setSelected("na");
+    dispatch(logoutProfil(appState))
+    navigate('/');
+  }
+
+  
+
   const evento = (e) => {
     setEvent(e.target.checked);
   }
@@ -101,7 +117,6 @@ function Head() {
           />
         </Grid>
         <Grid xs={4} justify="flex-end">
-
             <Button
               auto
               color="error"
@@ -120,7 +135,13 @@ function Head() {
                 icon={<MenuIcon fill="currentColor" filled />}
               />
             </Dropdown.Trigger>
-            <Dropdown.Menu color="primary" shadow aria-label="User Actions">
+            <Dropdown.Menu 
+              color="primary" 
+              shadow aria-label="User Actions"
+              selectionMode="single"
+              selectedKeys={selected}
+              onSelectionChange={setSelected}
+            >
               <Dropdown.Item key="profile" css={{ height: "$18" }}>
                 <Text b color="inherit" css={{ d: "flex" }}>
                   Signed in as
@@ -131,10 +152,6 @@ function Head() {
               </Dropdown.Item>
               <Dropdown.Item key="settings" withDivider>
                 My Settings
-              </Dropdown.Item>
-              <Dropdown.Item key="configurations">Configurations</Dropdown.Item>
-              <Dropdown.Item key="help_and_feedback" withDivider>
-                Help & Feedback
               </Dropdown.Item>
               <Dropdown.Item key="logout" color="error" withDivider>
                 Log Out
