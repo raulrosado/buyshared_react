@@ -1,5 +1,5 @@
 import { SET_USER,SEL_EVENT,SEL_LIST,SHOW_MODAL,ADD_LISTS,ADD_EVENTS,ADD_EVENTSAVATARS,ADD_LISTSAVATARS,DEL_LIST,DEL_EVENT,ADD_TASK,ADD_TASKS } from "../actions/type";
-import { DEL_TASK } from "../actions/type";
+import { DEL_TASK,COMPLET_TASK } from "../actions/type";
 
 const initialState ={
     user:[]    
@@ -25,6 +25,7 @@ const userReducer = (state = initialState, action) => {
       const estadoList = {...state.user}
       estadoList.lists = action.payload
       return { ...state, user: estadoList };
+
     case ADD_EVENTS:
       const estadoEvent = {...state.user}
       estadoEvent.events = action.payload
@@ -76,6 +77,17 @@ const userReducer = (state = initialState, action) => {
         let newArrayTask = antiguoTaskStateToDel.tasks.filter(elem => elem._id !== action.payload);
         antiguoTaskStateToDel.tasks = newArrayTask
         return { ...state, user: antiguoTaskStateToDel };
+
+    case COMPLET_TASK:
+      const completStateTasks = {...state.user}
+      let taskSelect = completStateTasks.tasks.filter(elem => elem._id === action.payload.id);
+      taskSelect[0].estado = action.payload.estado
+
+      let newArrayTask2 = completStateTasks.tasks.filter(elem => elem._id !== action.payload);
+      newArrayTask2.concat(taskSelect);
+      completStateTasks.tasks = newArrayTask2;
+      return { ...state, user: completStateTasks };
+
     default:
       return { ...state };
   }

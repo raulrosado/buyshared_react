@@ -11,3 +11,4 @@ export const DEL_EVENT= 'DEL_EVENT';
 export const ADD_TASKS= 'ADD_TASKS';
 export const ADD_TASK= 'ADD_TASK';
 export const DEL_TASK= 'DEL_TASK';
+export const COMPLET_TASK= 'COMPLET_TASK';

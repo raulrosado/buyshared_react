@@ -12,7 +12,7 @@ import GrupoAvatar from "./GrupoAvatar";
 import { Dotsverticalround } from "../icons/Dotsverticalround";
 import { DeleteDocumentIcon } from "../icons/DeleteDocumentIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { delTasksState } from "../actions"
+import { delTasksState,completTasksState } from "../actions"
 import { delTask } from "../api/delTask"
 import { postModificTask } from "../api/postModificTask"
 
@@ -45,7 +45,11 @@ function Task(props) {
   const handleCompletTaskFunction = () => {
     postModificTask(props.info._id, config).then((res) => {
       console.log(res)
-      // dispatch(delTasksState(props.info._id))
+      let action = {
+        "id":props.info._id,
+        "estado":res.data.estado
+      }
+      dispatch(completTasksState(action))
     })
   };
 
