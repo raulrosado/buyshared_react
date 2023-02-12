@@ -6,7 +6,7 @@ import {
     Text,
     Input,
     Card,
-    User,
+    Loading,
     Button
 } from "@nextui-org/react";
 import { LeftArroy } from "../icons/LeftArroy";
@@ -20,13 +20,21 @@ import { LockIcon } from "../icons/LockIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import config from '../config/config';
+import { postChangePictur } from "../api/postChangePictur.js";
+import { postChangeInfo } from "../api/postChangeInfo.js";
+import { postChangePassword } from "../api/postChangePassword.js";
 
 function Setting() {
     const appState = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     let nombre = `${appState.user.name} ${appState.user.apellidos}`
+    const [loadingPicture, setLoadingPicture] = React.useState(false);
+    const [loadingInfoP, setLoadingInfoP] = React.useState(false);
+    const [loadingPassword, setLoadingPassword] = React.useState(false);
 
+
+    const form = document.querySelector("form");
 
     let header = {
         headers: {
@@ -34,12 +42,63 @@ function Setting() {
         },
     };
 
-    
+    let buttonLoading;
+    let buttonLoadingInfoP;
+    let buttonLoadingPassword;
+    if (loadingPicture) {
+        buttonLoading = <Loading size="sm" />
+    }
+    if (loadingInfoP) {
+        buttonLoadingInfoP = <Loading size="sm" />
+    }
+    if (loadingPassword) {
+        buttonLoadingPassword = <Loading size="sm" />
+    }
+
+    const changeImagen = () =>{
+        setLoadingPicture(true)
+         header = {
+            headers: {
+                Authorization : `Bearer ${appState.token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }
+        const formData = new FormData(form);
+        postChangePictur(formData,header).then((res)=>{
+            setLoadingPicture(false)
+            console.log(res)
+        });
+    }
+
+    const changePersonalInformation = () =>{
+        let request = {
+            name:document.getElementById("nombre"),
+            email:document.getElementById("email")
+        }
+        setLoadingInfoP(true)
+        postChangeInfo(request,header).then((res)=>{
+            setLoadingInfoP(false)
+            console.log(res)
+        })
+    }
+
+    const changePassword = () =>{
+        let requestPassword = {
+            passwordAnt:document.getElementById("password"),
+            passwordNew:document.getElementById("passwordNew"),
+            passwordRepetNew:document.getElementById("passwordRepeatNew")
+        }
+        setLoadingPassword(true)
+        postChangePassword(requestPassword,header).then((res)=>{
+            setLoadingPassword(false)
+            console.log(res)
+        })
+    }
 
     return (
         <div>
             <Head />
-            <Grid.Container gap={0} justify="center">
+            <Grid.Container gap={2} justify="center">
                 <Grid xs={4}>
                     <Link to="/main">
                         <Avatar
@@ -66,8 +125,8 @@ function Setting() {
                         </Text>
                     </Card.Header>
                     <Card.Body>
-                        <form name="addListForm" methot="POST" encType="multipart/form-date">
-                            <Grid.Container gap={1} justify="center">
+                        <form name="cangePictureForm" methot="POST" encType="multipart/form-date">
+                            <Grid.Container gap={0} justify="center">
                                 <Grid xs={3}>
                                 <Avatar
                                     bordered
@@ -89,7 +148,7 @@ function Setting() {
                         </form>
                     </Card.Body>
                     <Card.Footer>
-                        <Button>Cambiar imagen</Button>
+                        <Button onPress={changeImagen}>Cambiar imagen</Button>{buttonLoading}
                     </Card.Footer>
                 </Card>
             </section>
@@ -131,7 +190,7 @@ function Setting() {
                         </Grid.Container>
                     </Card.Body>
                     <Card.Footer>
-                        <Button>Actualizar</Button>
+                        <Button onPress={buttonLoadingInfoP}>Actualizar</Button>
                     </Card.Footer>
                 </Card>
             </section>
@@ -161,7 +220,7 @@ function Setting() {
                             </Grid>
                             <Grid xs={12}>
                                 <Input.Password
-                                    id="password"
+                                    id="passwordNew"
                                     clearable
                                     bordered
                                     fullWidth
@@ -175,7 +234,7 @@ function Setting() {
                             </Grid>
                             <Grid xs={12}>
                                 <Input.Password
-                                    id="password"
+                                    id="passwordRepeatNew"
                                     clearable
                                     bordered
                                     fullWidth
@@ -190,7 +249,7 @@ function Setting() {
                         </Grid.Container>
                     </Card.Body>
                     <Card.Footer>
-                        <Button>Actualizar</Button>
+                        <Button onPress={buttonLoadingPassword}>Actualizar</Button>
                     </Card.Footer>
                 </Card>
             </section>
