@@ -87,9 +87,12 @@ function Head() {
     setSelected("na");
     dispatch(logoutProfil(appState))
     navigate('/');
+    navigate('/setting');
   }
-
-  
+  if (selected.anchorKey === "settings") {
+    setSelected("na");
+    navigate('/setting');
+  }
 
   const evento = (e) => {
     setEvent(e.target.checked);
@@ -174,28 +177,28 @@ function Head() {
         </Modal.Header>
         <Modal.Body>
           <form name="addListForm" methot="POST" encType="multipart/form-date">
-          <Input
-            id="name_list"
-            name="name_list"
-            clearable
-            bordered
-            fullWidth
-            color="primary"
-            size="lg"
-            placeholder="Nombre de la lista"
-            contentLeft={<AddNoteIcon fill="currentColor" />}
-          />
-          <Grid.Container gap={2}>
-            <Grid>
-              <Text id="modal-title" size={18}>
-                Agregar como evento
-              </Text>
-            </Grid>
-            <Grid>
-              <Switch shadow color="primary" checked={false} onChange={evento}/>
-            </Grid>
-          </Grid.Container>
-          {event ? (<Input clearable name="file" id="file" type="file" color="primary" size="sm" placeholder="File"  onChange={(e)=>this.handleFile(e)}/>) : null }
+            <Input
+              id="name_list"
+              name="name_list"
+              clearable
+              bordered
+              fullWidth
+              color="primary"
+              size="lg"
+              placeholder="Nombre de la lista"
+              contentLeft={<AddNoteIcon fill="currentColor" />}
+            />
+            <Grid.Container gap={2}>
+              <Grid>
+                <Text id="modal-title" size={18}>
+                  Agregar como evento
+                </Text>
+              </Grid>
+              <Grid>
+                <Switch shadow color="primary" checked={false} onChange={evento}/>
+              </Grid>
+            </Grid.Container>
+              {event ? (<Input clearable name="file" id="file" type="file" color="primary" size="sm" placeholder="File"  onChange={(e)=>this.handleFile(e)}/>) : null }
           </form>
         </Modal.Body>
         <Modal.Footer>

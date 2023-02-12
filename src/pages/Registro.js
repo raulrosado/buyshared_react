@@ -4,12 +4,12 @@ import { Mail } from "../icons/Mail";
 import { Usericon } from "../icons/Usericon";
 import { CheckIcon } from "../icons/CheckIcon";
 import { CloseIcon } from "../icons/CloseIcon";
-import "./login/Login.css";
 import { UnLockIcon } from "../icons/UnLockIcon";
 import { LockIcon } from "../icons/LockIcon";
+import "./login/Login.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Registro() {
   // const [user, setUser] = React.useState({
@@ -19,7 +19,7 @@ function Registro() {
   // });
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(null);
-  const navigate = useNavigate ();
+  const navigate = useNavigate();
 
   const post = () => {
     if (!loading) {
@@ -38,21 +38,21 @@ function Registro() {
           "Access-Control-Allow-Origin": "http://localhost:3000/registro",
         },
       })
-      .then(function (response) {
-        console.log(response);
-        if(response.data.status){
-          setSuccess(true) 
-          navigate('/login');
-        }else{
+        .then(function (response) {
+          console.log(response);
+          if (response.data.status) {
+            setSuccess(true)
+            navigate('/login');
+          } else {
+            setSuccess(false);
+          }
+          setLoading(false);
+        })
+        .catch(function (error) {
+          console.log(error);
           setSuccess(false);
-        }
-        setLoading(false);
-      })
-      .catch(function (error) {
-        console.log(error);
-        setSuccess(false);
-        setLoading(false);
-      });
+          setLoading(false);
+        });
     }
     console.log("enviar");
   };
@@ -68,41 +68,41 @@ function Registro() {
   console.log(success);
   if (success) {
     btn_success = <Badge
-            enableShadow
-            disableOutline
-            color="success"
-            content={<CheckIcon width={24} height={24} />}
-            css={{ p: "0" }}
-            horizontalOffset="-22%"
-            verticalOffset="45%"
-          >
-            <Badge
-              enableShadow
-              disableOutline
-              color="success"
-            >
-              Usuario agregado
-            </Badge>
-          </Badge>;
-  } 
-  if(!success) {
+      enableShadow
+      disableOutline
+      color="success"
+      content={<CheckIcon width={24} height={24} />}
+      css={{ p: "0" }}
+      horizontalOffset="-22%"
+      verticalOffset="45%"
+    >
+      <Badge
+        enableShadow
+        disableOutline
+        color="success"
+      >
+        Usuario agregado
+      </Badge>
+    </Badge>;
+  }
+  if (!success) {
     btn_success = <Badge
-            enableShadow
-            disableOutline
-            color="error"
-            content={<CloseIcon width={24} height={24} fill="none"/>}
-            css={{ p: "0" }}
-            horizontalOffset="112%"
-            verticalOffset="45%"
-          >
-            <Badge
-              enableShadow
-              disableOutline
-              color="error"
-            >
-              Error en el registro
-            </Badge>
-          </Badge>;
+      enableShadow
+      disableOutline
+      color="error"
+      content={<CloseIcon width={24} height={24} fill="none" />}
+      css={{ p: "0" }}
+      horizontalOffset="112%"
+      verticalOffset="45%"
+    >
+      <Badge
+        enableShadow
+        disableOutline
+        color="error"
+      >
+        Error en el registro
+      </Badge>
+    </Badge>;
   }
 
   return (
