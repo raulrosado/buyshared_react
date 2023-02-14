@@ -62,8 +62,7 @@ function Login() {
       <Grid.Container gap={2} justify="center">
         <Grid xs={12}>
             <Image
-                width={320}
-                height={180}  
+                className="imgLogo"
                 src="/images/list.jpg"
                 alt="Default Image"
                 objectFit="cover"
