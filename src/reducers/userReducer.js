@@ -1,5 +1,5 @@
 import { SET_USER, SEL_EVENT, SEL_LIST, SHOW_MODAL, ADD_LISTS, ADD_EVENTS, ADD_EVENTSAVATARS, ADD_LISTSAVATARS, DEL_LIST, DEL_EVENT, ADD_TASK, ADD_TASKS } from "../actions/type";
-import { DEL_TASK, COMPLET_TASK, LOGOUT } from "../actions/type";
+import { DEL_TASK, COMPLET_TASK, LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE } from "../actions/type";
 
 const initialState = {
   user: []
@@ -89,6 +89,19 @@ const userReducer = (state = initialState, action) => {
       newArrayTask2.concat(taskSelect);
       completStateTasks.tasks = newArrayTask2;
       return { ...state, user: completStateTasks };
+
+    case CHANGEPICTURE:
+      const infoPAvatar = {...state.user}
+      infoPAvatar.user.avatar = action.payload
+      return { ...state, user: infoPAvatar };
+
+    case CHANGEINFOPROFILE :
+      const infoPerson = {...state.user}
+      let nombre = action.payload.name.split(" ")
+      infoPerson.user.name = nombre[0]
+      infoPerson.user.apellidos = nombre[1]+ ' ' +nombre[2]
+      infoPerson.user.email = action.payload.email
+      return { ...state, user: infoPerson};
 
     default:
       return { ...state };

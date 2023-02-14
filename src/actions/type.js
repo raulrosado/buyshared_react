@@ -14,3 +14,5 @@ export const DEL_TASK= 'DEL_TASK';
 export const COMPLET_TASK= 'COMPLET_TASK';
 
 export const LOGOUT = 'LOGOUT';
+export const CHANGEPICTURE = 'CHANGEPICTURE';
+export const CHANGEINFOPROFILE = 'CHANGEINFOPROFILE';

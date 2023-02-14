@@ -85,9 +85,7 @@ function Head() {
 
   if (selected.anchorKey === "logout") {
     setSelected("na");
-    dispatch(logoutProfil(appState))
     navigate('/');
-    navigate('/setting');
   }
   if (selected.anchorKey === "settings") {
     setSelected("na");

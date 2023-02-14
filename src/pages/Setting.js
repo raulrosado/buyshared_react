@@ -6,6 +6,7 @@ import {
     Text,
     Input,
     Card,
+    Spacer,
     Loading,
     Button
 } from "@nextui-org/react";
@@ -23,6 +24,7 @@ import config from '../config/config';
 import { postChangePictur } from "../api/postChangePictur.js";
 import { postChangeInfo } from "../api/postChangeInfo.js";
 import { postChangePassword } from "../api/postChangePassword.js";
+import {changePicture,changeInfoPerfil} from "../actions"
 
 function Setting() {
     const appState = useSelector((state) => state.user);
@@ -37,8 +39,7 @@ function Setting() {
     const [textoEmail , setTextoEmail] = React.useState("");
     const [colorEmail, setColorEmail] = React.useState("");
 
-
-    const form = document.querySelector("form");
+    
 
     let header = {
         headers: {
@@ -61,16 +62,21 @@ function Setting() {
 
     const changeImagen = () => {
         setLoadingPicture(true)
+        const form = document.querySelector("form");
+        let formData = new FormData(form);
+        
         header = {
             headers: {
                 Authorization: `Bearer ${appState.token}`,
                 "Content-Type": "multipart/form-data"
             }
         }
-        const formData = new FormData(form);
-        postChangePictur(formData, header).then((res) => {
+        postChangePictur(formData,header).then((res) => {
             setLoadingPicture(false)
             console.log(res)
+            if(res.data.success){
+                dispatch(changePicture(res.data.filename))
+            }
         });
     }
 
@@ -82,6 +88,7 @@ function Setting() {
         }
         postChangeInfo(request, header).then((res) => {
             setLoadingInfoP(false)
+            dispatch(changeInfoPerfil(request))
         })
     }
 
@@ -144,6 +151,7 @@ return (
                                     src={config.URL + "images/" + appState.user.avatar}
                                 />
                             </Grid>
+                            <Spacer x={1} />
                             <Grid xs={8}>
                                 <Input
                                     clearable
@@ -190,7 +198,6 @@ return (
                                 clearable
                                 bordered
                                 fullWidth
-                                color="primary"
                                 size="lg"
                                 type="email"
                                 status={colorEmail}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Input,
@@ -14,7 +14,7 @@ import { LockIcon } from "../../icons/LockIcon";
 import { Link } from "react-router-dom";
 import { useNavigate  } from "react-router-dom";
 import axios from "axios";
-import { setUser } from "../../actions";
+import { setUser,logoutProfil } from "../../actions";
 import { useDispatch,useSelector } from "react-redux";
 import { postLogin } from "../../api/postLogin";
 
@@ -25,6 +25,10 @@ function Login() {
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+      dispatch(logoutProfil(user))
+  }, [])
+
   const login = () => {
     if (!loading) {
       setLoading(true)
@@ -34,7 +38,6 @@ function Login() {
       };
 
       postLogin(parametro).then((response)=>{
-        console.log(response);
           setLoading(false)
           dispatch(setUser(response.data))
           navigate('/main');
@@ -44,29 +47,6 @@ function Login() {
         setLoading(false)
       });
 
-      // axios({
-      //   method: "POST",
-      //   url: "http://localhost:5000/v1/api/login",
-      //   data: {
-      //     email: document.getElementById("email").value,
-      //     password: document.getElementById("password").value,
-      //   },
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Accept": "application/json",
-      //   }
-      // })
-      //   .then(function (response) {
-      //     console.log(response);
-      //     setLoading(false)
-      //     dispatch(setUser(response.data))
-      //     navigate('/main');
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //     alert(error);
-      //     setLoading(false)
-      //   });
     }
   };
 
