@@ -73,7 +73,6 @@ function Setting() {
         }
         postChangePictur(formData,header).then((res) => {
             setLoadingPicture(false)
-            console.log(res)
             if(res.data.success){
                 dispatch(changePicture(res.data.filename))
             }
@@ -83,13 +82,18 @@ function Setting() {
     const changePersonalInformation = () => {
         setLoadingInfoP(true)
         let request = {
-            name: document.getElementById("nombre").value,
-            email: document.getElementById("email").value
+            name: document.getElementById("nombre").value || nombre,
+            email: document.getElementById("email").value || appState.user.email
         }
-        postChangeInfo(request, header).then((res) => {
-            setLoadingInfoP(false)
-            dispatch(changeInfoPerfil(request))
-        })
+        if(request.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i)){
+            postChangeInfo(request, header).then((res) => {
+                setLoadingInfoP(false)
+                dispatch(changeInfoPerfil(request))
+            })
+        }else{
+            setTextoEmail("Email no valido")
+            setColorEmail("error")
+        }
     }
 
     const changePassword = () => {
@@ -108,6 +112,7 @@ function Setting() {
         }else{
             setTexto("Las contraseñas no coinciden")
             setColor("error")
+            setLoadingPassword(false)
         }
     }
 
