@@ -61,10 +61,10 @@ function TopHeadOptions(props) {
       task: document.getElementById("taskTexto").value,
       idEvent: user.idEvent,
       idList: user.idList,
+      referencia:user.idReference
     };
     postAddTask(parametro, config).then((res) => {
       setLoading(false);
-      console.log(res.data)
       dispatch(addTaskState(res.data))
       closeHandler();
     });
@@ -94,6 +94,7 @@ function TopHeadOptions(props) {
     setSelected("na");
     setVisible2(true);
   }
+
   if (selected.anchorKey === "deleteTask") {
     setSelected("na");
     if (user.idList === 0) {

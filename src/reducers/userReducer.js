@@ -1,5 +1,5 @@
 import { SET_USER, SEL_EVENT, SEL_LIST, SHOW_MODAL, ADD_LISTS, ADD_EVENTS, ADD_EVENTSAVATARS, ADD_LISTSAVATARS, DEL_LIST, DEL_EVENT, ADD_TASK, ADD_TASKS } from "../actions/type";
-import { DEL_TASK, COMPLET_TASK, LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE } from "../actions/type";
+import { DEL_TASK, COMPLET_TASK, LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE,ADD_TASKSREFERENCE,SEL_REFERENCE } from "../actions/type";
 
 const initialState = {
   user: []
@@ -74,6 +74,11 @@ const userReducer = (state = initialState, action) => {
       tateTasks.tasks = action.payload
       return { ...state, user: tateTasks };
 
+    case ADD_TASKSREFERENCE:
+      const tateTasksR = { ...state.user }
+      tateTasksR.tasks = tateTasksR.tasks.concat(action.payload);
+      return { ...state, user: tateTasksR };
+
     case DEL_TASK:
       const antiguoTaskStateToDel = { ...state.user }
       let newArrayTask = antiguoTaskStateToDel.tasks.filter(elem => elem._id !== action.payload);
@@ -102,6 +107,11 @@ const userReducer = (state = initialState, action) => {
       infoPerson.user.apellidos = nombre[1]+ ' ' +nombre[2]
       infoPerson.user.email = action.payload.email
       return { ...state, user: infoPerson};
+
+    case SEL_REFERENCE :
+      const antiguoReference = { ...state.user }
+      antiguoReference.idReference = action.payload
+      return { ...state, user: antiguoReference };
 
     default:
       return { ...state };
