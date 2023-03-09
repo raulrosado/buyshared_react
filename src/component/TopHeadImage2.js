@@ -49,16 +49,8 @@ function TopHeadImage2(props) {
             Miembros:
           </Text>
           <Grid xs={12} className="headMiembros">
-            <Grid xs={6} style={{ padding: "10px" }}>
+            <Grid xs={12} style={{ padding: "10px" }}>
               {avatars}
-            </Grid>
-            <Grid xs={6} justify="flex-end" style={{ padding: "10px" }}>
-              <Avatar
-                bordered
-                size="md"
-                as="button"
-                icon={<PlusIcon fill="currentColor" filled />}
-              />
             </Grid>
           </Grid>
         </Grid.Container>

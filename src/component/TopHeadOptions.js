@@ -33,6 +33,8 @@ function TopHeadOptions(props) {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [textoEmail, setTextoEmail] = React.useState("");
+  const [colorEmail, setColorEmail] = React.useState("primary");
   const closeHandler = () => {
     setVisible(false);
     setVisible2(false);
@@ -77,10 +79,16 @@ function TopHeadOptions(props) {
       idEvent: user.idEvent,
       idList: user.idList,
     };
-    postSendInvitacion(parametro, config).then((res) => {
+    if (parametro.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i)) {
+      postSendInvitacion(parametro, config).then((res) => {
+        setLoading(false);
+        closeHandler();
+      });
+    }else{
+      setTextoEmail("Email no valido")
+      setColorEmail("error")
       setLoading(false);
-      closeHandler();
-    });
+    }
   };
 
   const [selected, setSelected] = React.useState(new Set(["rilo"]));
@@ -91,8 +99,11 @@ function TopHeadOptions(props) {
 
   let ModelContenido;
   if (selected.anchorKey === "newFriend") {
+    setTextoEmail("")
+    setColorEmail("primary")
     setSelected("na");
     setVisible2(true);
+
   }
 
   if (selected.anchorKey === "deleteTask") {
@@ -198,8 +209,11 @@ function TopHeadOptions(props) {
           clearable
           bordered
           fullWidth
-          color="primary"
           size="lg"
+          status={colorEmail}
+          color={colorEmail}
+          helperColor={colorEmail}
+          helperText={textoEmail}
           placeholder="Correo electronico"
           contentLeft={<Mail fill="currentColor" />}
         />

@@ -41,8 +41,6 @@ function Setting() {
     const [textoEmail, setTextoEmail] = React.useState("");
     const [colorEmail, setColorEmail] = React.useState("");
 
-
-
     let header = {
         headers: {
             Authorization: `Bearer ${appState.token}`,
