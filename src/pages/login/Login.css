@@ -8,3 +8,12 @@
     width: 90%;
     height: auto;
 }
+@media only screen and (min-width: 915px) {
+    .login{
+        max-height: 300px;
+        max-width:60%;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+    }
+}

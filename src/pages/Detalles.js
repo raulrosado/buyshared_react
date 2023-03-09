@@ -5,13 +5,14 @@ import TopHeadImage2 from "../component/TopHeadImage2";
 import Task from "../component/Task";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailList } from "../api/getDetailList";
-import { setEvent, setList, addTasksState } from "../actions";
+import { setEvent, setList, addTasksState,selectReference } from "../actions";
 
 function Detalles() {
   const params = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const listTasks = useSelector(state => state.user.tasks);
+  
+  let listTasks = useSelector(state => state.user.tasks);
 
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,10 @@ function Detalles() {
   };
 
   useEffect(() => {
-    if (listTasks !== undefined) {
+    console.log(listTasks)
+    if (listTasks === undefined || listTasks.length === 0) {
+      
+    }else{
       if(listTasks[0].id_lista === params.id){
         setTasks(listTasks)
       }
@@ -47,6 +51,11 @@ function Detalles() {
         dispatch(setList(params.id))
         setLoading(false);
         setLoadingList(true);
+        if(res.data.referencia === ""){
+          dispatch(selectReference(params.id))
+        }else{
+          dispatch(selectReference(res.data.referencia))
+        }
       });
     }
   }, []);

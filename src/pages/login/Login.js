@@ -60,7 +60,7 @@ function Login() {
   return (
     <div className="centro">
       <Grid.Container gap={2} justify="center">
-        <Grid xs={12}>
+        <Grid xs={12} md={6} sm={6}>
             <Image
                 className="imgLogo"
                 src="/images/list.jpg"
@@ -68,43 +68,51 @@ function Login() {
                 objectFit="cover"
                 />
         </Grid>
-        <Grid xs={12}>
-            <Grid.Container gap={2} justify="center">
-            <Grid xs={12}>
-                <Input
-                  id="email"
-                  clearable
-                  bordered
-                  fullWidth
-                  color="primary"
-                  size="lg"
-                  type="email"
-                  placeholder="Email"
-                  contentRight={<Mail fill="currentColor" />}
-                />
-            </Grid>
-            <Grid xs={12}>
-                <Input.Password
-                  id="password"
-                  clearable
-                  bordered
-                  fullWidth
-                  color="primary"
-                  size="lg"
-                  type="password"
-                  placeholder="Contraseña"
-                  visibleIcon={<UnLockIcon fill="currentColor" />}
-                  hiddenIcon={<LockIcon fill="currentColor" />}
-                />
-            </Grid>
-            <Grid xs={6}>
-                <Link to="/registro">No tengo cuenta!</Link>
-            </Grid>
-            <Grid xs={6} justify="flex-end">
-                <Button auto onPress={login}>
-                    {button}
-                </Button>
-            </Grid>
+        <Grid xs={12} md={6} sm={6}>
+            <Grid.Container gap={2} justify="center" className="login">
+              <Grid.Container gap={2} justify="center">
+                <Text id="modal-title" size={18}>
+                  Bienvenidos a 
+                  <Text b size={18}>
+                     BUYSHARE
+                  </Text>
+                </Text>
+                <Grid xs={12}>
+                    <Input
+                      id="email"
+                      clearable
+                      bordered
+                      fullWidth
+                      color="primary"
+                      size="lg"
+                      type="email"
+                      placeholder="Email"
+                      contentRight={<Mail fill="currentColor" />}
+                    />
+                </Grid>
+                <Grid xs={12}>
+                    <Input.Password
+                      id="password"
+                      clearable
+                      bordered
+                      fullWidth
+                      color="primary"
+                      size="lg"
+                      type="password"
+                      placeholder="Contraseña"
+                      visibleIcon={<UnLockIcon fill="currentColor" />}
+                      hiddenIcon={<LockIcon fill="currentColor" />}
+                    />
+                </Grid>
+                <Grid xs={6}>
+                    <Link to="/registro">No tengo cuenta!</Link>
+                </Grid>
+                <Grid xs={6} justify="flex-end">
+                    <Button auto onPress={login}>
+                        {button}
+                    </Button>
+                </Grid>
+              </Grid.Container>
             </Grid.Container>
         </Grid>
       </Grid.Container>
