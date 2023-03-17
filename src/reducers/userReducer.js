@@ -1,5 +1,5 @@
 import { SET_USER, SEL_EVENT, SEL_LIST, SHOW_MODAL, ADD_LISTS, ADD_EVENTS, ADD_EVENTSAVATARS, ADD_LISTSAVATARS, DEL_LIST, DEL_EVENT, ADD_TASK, ADD_TASKS } from "../actions/type";
-import { DEL_TASK, COMPLET_TASK, LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE,ADD_TASKSREFERENCE,SEL_REFERENCE } from "../actions/type";
+import { DEL_TASK, COMPLET_TASK, LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE,ADD_TASKSREFERENCE,SEL_REFERENCE,SAVE } from "../actions/type";
 
 const initialState = {
   user: []
@@ -9,6 +9,8 @@ const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGOUT:
       return { ...state, user: "" };
+    case SAVE:
+      return { ...state, user: action.payload };
 
     case SET_USER:
       return { ...state, user: action.payload };

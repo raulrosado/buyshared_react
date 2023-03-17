@@ -6,15 +6,22 @@ import CardListas from './CardListas';
 import { getList } from '../api/getList';
 import { useNavigate } from "react-router-dom";
 import { getEvent } from '../api/getEvent';
-import { addLists, addEvents, addListsAvatar, addEventsAvatar } from '../actions';
+import { addLists, addEvents, addListsAvatar, addEventsAvatar,saveLocalStorage } from '../actions';
+import LoadInfo from "../function/LoadInfo"
 
 function Eventos() {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
-  const listsState = useSelector(state => state.user.lists);
-  const eventsState = useSelector(state => state.user.events);
-  const listsStateAvatar = useSelector(state => state.user.listsAvatars);
-  const eventsStateAvatar = useSelector(state => state.user.eventsAvatars);
+  let user;
+  user = useSelector(state => state.user);
+  if(user === null){
+    user = JSON.parse(localStorage.getItem('buyshare'))
+    dispatch(saveLocalStorage(JSON.parse(localStorage.getItem('buyshare'))))
+  }
+  
+  const listsState = user.lists;
+  const eventsState = user.events;
+  const listsStateAvatar = user.listsAvatars;
+  const eventsStateAvatar = user.eventsAvatars;
 
   const [lists, setLists] = useState([]);
   const [listsEvent, setListsEvent] = useState([]);
@@ -68,12 +75,12 @@ function Eventos() {
   }, [])
 
     useEffect(() => {
-    if(listsState !== undefined){
-      // dispatch(addListsAvatar(listsAvatares))
-      setLists(listsState);
-      setListsAvatares(listsStateAvatar)
-    }
-  }, [listsAvatares])
+      if(listsState !== undefined){
+        // dispatch(addListsAvatar(listsAvatares))
+        setLists(listsState);
+        setListsAvatares(listsStateAvatar)
+      }
+    }, [listsAvatares])
 
   useEffect(() => {
     if(listsState !== undefined){
@@ -83,6 +90,8 @@ function Eventos() {
       setListsAvataresEvent(eventsStateAvatar)
     }
   }, [listsAvataresEvent])
+
+  LoadInfo(useSelector(state => state.user));
 
   let loadingCond;
   if (loading) {

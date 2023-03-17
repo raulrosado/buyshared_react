@@ -6,6 +6,7 @@ import Task from "../component/Task";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailList } from "../api/getDetailList";
 import { setEvent, setList, addTasksState,selectReference } from "../actions";
+import LoadInfo from "../function/LoadInfo"
 
 function Detalles() {
   const params = useParams();
@@ -59,7 +60,7 @@ function Detalles() {
       });
     }
   }, []);
-
+  LoadInfo(useSelector(state => state.user));
 
   let loadingCond;
   if (loading) {

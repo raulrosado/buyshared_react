@@ -17,14 +17,14 @@ import axios from "axios";
 import { setUser,logoutProfil } from "../../actions";
 import { useDispatch,useSelector } from "react-redux";
 import { postLogin } from "../../api/postLogin";
-
+import LoadInfo from "../../function/LoadInfo"
 
 function Login() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
       dispatch(logoutProfil(user))
   }, [])
@@ -40,13 +40,14 @@ function Login() {
       postLogin(parametro).then((response)=>{
           setLoading(false)
           dispatch(setUser(response.data))
+          LoadInfo(response.data)
+          // localStorage.setItem('buyshare', JSON.stringify(response.data)); //? guardar la info en la localstorage
           navigate('/main');
       }).catch(function (error) {
         console.log(error);
         alert(error);
         setLoading(false)
       });
-
     }
   };
 

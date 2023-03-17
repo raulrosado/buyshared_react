@@ -1,5 +1,5 @@
 import { SET_USER,SEL_EVENT,SEL_LIST,SHOW_MODAL,ADD_LISTS,ADD_EVENTS,ADD_EVENTSAVATARS,ADD_LISTSAVATARS,DEL_LIST,DEL_EVENT,ADD_TASK,ADD_TASKS } from "./type";
-import { DEL_TASK,COMPLET_TASK,LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE,ADD_TASKSREFERENCE,SEL_REFERENCE } from "./type";
+import { DEL_TASK,COMPLET_TASK,LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE,ADD_TASKSREFERENCE,SEL_REFERENCE,SAVE } from "./type";
 
 export const setUser = (payload) =>({
     type:SET_USER,
@@ -75,5 +75,9 @@ export const changeInfoPerfil = (payload) =>({
 })
 export const selectReference = (payload) =>({
     type:SEL_REFERENCE,
+    payload,
+})
+export const saveLocalStorage = (payload) =>({
+    type:SAVE,
     payload,
 })

@@ -18,3 +18,4 @@ export const COMPLET_TASK= 'COMPLET_TASK';
 export const LOGOUT = 'LOGOUT';
 export const CHANGEPICTURE = 'CHANGEPICTURE';
 export const CHANGEINFOPROFILE = 'CHANGEINFOPROFILE';
+export const SAVE = 'SAVE';

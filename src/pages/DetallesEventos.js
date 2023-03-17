@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getDetailEvent } from "../api/getDetailEvent";
 import { setEvent, setList, addTasksState,addTasksReferenceState, selectReference } from "../actions";
+import LoadInfo from "../function/LoadInfo"
 
 function DetallesEventos() {
   const params = useParams();
@@ -62,6 +63,8 @@ function DetallesEventos() {
       });
     }
   });
+  
+  LoadInfo(useSelector(state => state.user));
 
   let loadingCond;
   if (loading) {

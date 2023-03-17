@@ -84,6 +84,7 @@ function Head() {
   );
 
   if (selected.anchorKey === "logout") {
+    localStorage.removeItem('buyshare')
     setSelected("na");
     navigate('/');
   }
