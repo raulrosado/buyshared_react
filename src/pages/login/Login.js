@@ -41,7 +41,6 @@ function Login() {
           setLoading(false)
           dispatch(setUser(response.data))
           LoadInfo(response.data)
-          // localStorage.setItem('buyshare', JSON.stringify(response.data)); //? guardar la info en la localstorage
           navigate('/main');
       }).catch(function (error) {
         console.log(error);
@@ -69,12 +68,12 @@ function Login() {
                 objectFit="cover"
                 />
         </Grid>
-        <Grid xs={12} md={6} sm={6}>
-            <Grid.Container gap={2} justify="center" className="login">
-              <Grid.Container gap={2} justify="center">
+        <Grid xs={12} md={6} sm={6} style={{display:'grid',alignItems:'center'}}>
+            <Grid.Container gap={2} justify="center" className="login" style={{display:'grid',alignItems:'center'}}>
+              <Grid.Container gap={2} justify="center" >
                 <Text id="modal-title" size={18}>
                   Bienvenidos a 
-                  <Text b size={18}>
+                  <Text b size={18} style={{ marginLeft: '5px' }}>
                      BUYSHARE
                   </Text>
                 </Text>

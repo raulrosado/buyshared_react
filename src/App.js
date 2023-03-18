@@ -3,6 +3,7 @@ import Main from './pages/Main.js';
 import Detalles from './pages/Detalles.js';
 import Setting from './pages/Setting.js'
 import DetallesEventos from './pages/DetallesEventos.js';
+import AcceptSolicitud from './pages/AcceptSolicitud';
 import { Routes, Route, Link } from "react-router-dom";
 import Login from './pages/login/Login';
 import Registro from './pages/Registro'
@@ -33,6 +34,7 @@ function App({ Component }) {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/accept/:token" element={<AcceptSolicitud />} />
         <Route path="*" element={NotFound} />
       </Routes>
       
