@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Grid, Text, Loading, Badge } from "@nextui-org/react";
+import { Button, Input, Grid, Text, Loading, Badge,Image } from "@nextui-org/react";
 import { Mail } from "../icons/Mail";
 import { Usericon } from "../icons/Usericon";
 import { CheckIcon } from "../icons/CheckIcon";
@@ -60,7 +60,7 @@ function Registro() {
   }
 
   let btn_success = "";
-  console.log(success);
+
   if (success) {
     btn_success = <Badge
       enableShadow
@@ -80,7 +80,7 @@ function Registro() {
       </Badge>
     </Badge>;
   }
-  if (!success) {
+  if (success === false) {
     btn_success = <Badge
       enableShadow
       disableOutline
@@ -103,61 +103,74 @@ function Registro() {
   return (
     <div className="centro">
       <Grid.Container gap={2} justify="center">
-        <Text h1>Sign Up</Text>
-        <Grid xs={12}>
-          <Grid.Container gap={2} justify="center">
-            <Grid xs={12}>
-              <Input
-                id="nombre"
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                type="text"
-                placeholder="Nombre"
-                contentRight={<Usericon fill="currentColor" />}
-              />
-            </Grid>
-            <Grid xs={12}>
-              <Input
-                id="email"
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                type="email"
-                placeholder="Email"
-                contentRight={<Mail fill="currentColor" />}
-              />
-            </Grid>
-            <Grid xs={12}>
-              <Input.Password
-                id="password"
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                type="password"
-                placeholder="Contraseña"
-                visibleIcon={<UnLockIcon fill="currentColor" />}
-                hiddenIcon={<LockIcon fill="currentColor" />}
-              />
-            </Grid>
-            <Grid xs={6}>
-              <Link to="/login">Ya tengo cuenta!</Link>
-            </Grid>
-            <Grid xs={6} justify="flex-end">
-              <Button auto onPress={post}>
-                {button}
-              </Button>
-            </Grid>
+        <Grid xs={12} md={6} sm={6}>
+              <Image
+                  className="imgLogo"
+                  src="/images/list.jpg"
+                  alt="Default Image"
+                  objectFit="cover"
+                  />
+          </Grid>
+
+        <Grid xs={12} md={6} sm={6} style={{display:'grid',alignItems:'center'}}>
+        <Grid.Container gap={2} justify="center" className="login" style={{display:'grid',alignItems:'center'}}>
+          <Text h1>Sign Up</Text>
+          <Grid xs={12}>
+            <Grid.Container gap={2} justify="center">
+              <Grid xs={12}>
+                <Input
+                  id="nombre"
+                  clearable
+                  bordered
+                  fullWidth
+                  color="primary"
+                  size="lg"
+                  type="text"
+                  placeholder="Nombre"
+                  contentRight={<Usericon fill="currentColor" />}
+                />
+              </Grid>
+              <Grid xs={12}>
+                <Input
+                  id="email"
+                  clearable
+                  bordered
+                  fullWidth
+                  color="primary"
+                  size="lg"
+                  type="email"
+                  placeholder="Email"
+                  contentRight={<Mail fill="currentColor" />}
+                />
+              </Grid>
+              <Grid xs={12}>
+                <Input.Password
+                  id="password"
+                  clearable
+                  bordered
+                  fullWidth
+                  color="primary"
+                  size="lg"
+                  type="password"
+                  placeholder="Contraseña"
+                  visibleIcon={<UnLockIcon fill="currentColor" />}
+                  hiddenIcon={<LockIcon fill="currentColor" />}
+                />
+              </Grid>
+              <Grid xs={6}>
+                <Link to="/login">Ya tengo cuenta!</Link>
+              </Grid>
+              <Grid xs={6} justify="flex-end">
+                <Button auto onPress={post}>
+                  {button}
+                </Button>
+              </Grid>
+            </Grid.Container>
+          </Grid>
+          <Grid xs={12} justify="center" alignContent="center">
+            {btn_success}
+          </Grid>
           </Grid.Container>
-        </Grid>
-        <Grid xs={12} justify="center" alignContent="center">
-          {btn_success}
         </Grid>
       </Grid.Container>
     </div>
