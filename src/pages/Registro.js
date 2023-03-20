@@ -12,11 +12,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function Registro() {
-  // const [user, setUser] = React.useState({
-  //   name: "",
-  //   email: "",
-  //   password: "",
-  // });
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(null);
   const navigate = useNavigate();
