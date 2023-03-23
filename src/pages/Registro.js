@@ -22,7 +22,7 @@ function Registro() {
       setLoading(true);
       axios({
         method: "POST",
-        url: `${config.URL}/v1/api/add_user`,
+        url: `${config.URL}v1/api/add_user`,
         data: {
           firstName: document.getElementById("nombre").value,
           email: document.getElementById("email").value,
@@ -31,7 +31,7 @@ function Registro() {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "Access-Control-Allow-Origin": `${config.URL}/registro`,
+          "Access-Control-Allow-Origin": `${config.URL}registro`,
         },
       })
         .then(function (response) {
