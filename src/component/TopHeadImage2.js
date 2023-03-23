@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import TopHeadOptions from "./TopHeadOptions";
-import { Avatar, Grid, Spacer, Text } from "@nextui-org/react";
+import { Grid, Text } from "@nextui-org/react";
 import "./css/topHeadImagen.css";
 import GrupoAvatar from "./GrupoAvatar";
-import { PlusIcon } from "../icons/PlusIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { addLists, addEvents, addListsAvatar, addEventsAvatar } from '../actions';
 
 function TopHeadImage2(props) {
-  const dispatch = useDispatch();
   const Stado = useSelector(state => state.user);
   const idList =  Stado.idList;
   const listsState = Stado.lists;

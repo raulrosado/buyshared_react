@@ -1,6 +1,5 @@
-import { Button,Text,Input,Modal } from '@nextui-org/react'
+import { Button,Text,Modal } from '@nextui-org/react'
 import React from 'react'
-import { Productoimg } from '../icons/Productoimg'
 
 function ModalCreado(props) {
   return (

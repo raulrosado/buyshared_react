@@ -5,19 +5,17 @@ import Detalles from './pages/Detalles.js';
 import Setting from './pages/Setting.js'
 import DetallesEventos from './pages/DetallesEventos.js';
 import AcceptSolicitud from './pages/AcceptSolicitud';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from './pages/login/Login';
 import Registro from './pages/Registro'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setUser,saveLocalStorage } from "./actions";
+import { saveLocalStorage } from "./actions";
 import NotRegisteredUser from './pages/NotRegisteredUser';
-import { Router } from "react-router-dom";  
 
 function App({ Component }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-  const navigate = useNavigate();
   const [isAuth, setIsAuth] = useState(false);
   
   useEffect(() => {

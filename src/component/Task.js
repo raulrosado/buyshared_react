@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   Grid,
@@ -8,11 +8,9 @@ import {
   Loading,
   Spacer
 } from "@nextui-org/react";
-import GrupoAvatar from "./GrupoAvatar";
-import { Dotsverticalround } from "../icons/Dotsverticalround";
 import { DeleteDocumentIcon } from "../icons/DeleteDocumentIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { delTasksState,completTasksState } from "../actions"
+import { delTasksState, completTasksState } from "../actions"
 import { delTask } from "../api/delTask"
 import { postModificTask } from "../api/postModificTask"
 
@@ -46,8 +44,8 @@ function Task(props) {
     postModificTask(props.info._id, config).then((res) => {
       console.log(res)
       let action = {
-        "id":props.info._id,
-        "estado":res.data.estado
+        "id": props.info._id,
+        "estado": res.data.estado
       }
       dispatch(completTasksState(action))
     })

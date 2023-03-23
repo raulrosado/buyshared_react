@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import TopHeadImage from "../component/TopHeadImage";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { CheckIcon } from "../icons/CheckIcon";
 import {
     Button,
-    Input,
     Grid,
-    Spacer,
     Image,
     Loading,
     Text,
@@ -23,7 +19,6 @@ import { getInfoSolicitud } from "../api/getInfoSolicitud";
 
 export default function AcceptSolicitud() {
     const params = useParams();
-    const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const [loadingGet, setLoadingGet] = useState(false);
     const [contenido, setContenido] = useState(false);
@@ -48,7 +43,7 @@ export default function AcceptSolicitud() {
                                 Aceptar solicitud
                             </Button>
                         </Grid>
-                        </Grid.Container>)
+                    </Grid.Container>)
                 } else {
                     setContenido(<div><Text>Esta invitación no está destinada a usted</Text><Link to="/login">Ingresar en mi cuenta</Link></div>)
                 }
@@ -62,7 +57,7 @@ export default function AcceptSolicitud() {
         login = false
     } else {
         login = true
-        
+
         head = {
             headers: {
                 Authorization: `Bearer ${user.token}`,
@@ -87,7 +82,7 @@ export default function AcceptSolicitud() {
             action: action,
             token: params.token
         };
-        actionSolicitud(parametro,head).then((response) => {
+        actionSolicitud(parametro, head).then((response) => {
             setLoading(false)
             setContenido(<Link to="/main">Regrese a su lista</Link>)
             setRespDone(<Badge
@@ -98,14 +93,14 @@ export default function AcceptSolicitud() {
                 css={{ p: "0" }}
                 horizontalOffset="-22%"
                 verticalOffset="45%"
+            >
+                <Badge
+                    enableShadow
+                    disableOutline
+                    color="success"
                 >
-                    <Badge
-                        enableShadow
-                        disableOutline
-                        color="success"
-                    >
-                        {response.data.message}
-                    </Badge>
+                    {response.data.message}
+                </Badge>
             </Badge>)
         });
     }

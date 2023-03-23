@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Card, Grid,Text } from "@nextui-org/react";
 import GrupoAvatar from './GrupoAvatar';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
 
 export default function CardListas(props) {
-  const dispatch = useDispatch();
   const [listsAvatares, setListsAvatares] = useState([]);
   
   useEffect(() => {

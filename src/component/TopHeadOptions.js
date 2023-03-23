@@ -10,12 +10,11 @@ import {
 import { LeftArroy } from "../icons/LeftArroy";
 import { PlusIcon } from "../icons/PlusIcon";
 import { Mail } from "../icons/Mail";
-import { Personplus } from "../icons/Personplus";
 import { Productoimg } from "../icons/Productoimg";
 import { DeleteDocumentIcon } from "../icons/DeleteDocumentIcon";
 import { Dotsverticalround } from "../icons/Dotsverticalround";
 import { Link } from "react-router-dom";
-import { Input, Checkbox } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postAddTask } from "../api/postAddTask";
@@ -23,7 +22,7 @@ import { delEvent } from "../api/delEvent";
 import { delList } from "../api/delList";
 import { postSendInvitacion } from "../api/postSendInvitacion";
 import ModalCreado from "./ModalCreado";
-import { delEventAction,delListAction,addTaskState } from "../actions";
+import { delEventAction, delListAction, addTaskState } from "../actions";
 
 function TopHeadOptions(props) {
   const [visible, setVisible] = React.useState(false);
@@ -63,7 +62,7 @@ function TopHeadOptions(props) {
       task: document.getElementById("taskTexto").value,
       idEvent: user.idEvent,
       idList: user.idList,
-      referencia:user.idReference
+      referencia: user.idReference
     };
     postAddTask(parametro, config).then((res) => {
       setLoading(false);
@@ -84,7 +83,7 @@ function TopHeadOptions(props) {
         setLoading(false);
         closeHandler();
       });
-    }else{
+    } else {
       setTextoEmail("Email no valido")
       setColorEmail("error")
       setLoading(false);
@@ -110,14 +109,14 @@ function TopHeadOptions(props) {
     setSelected("na");
     if (user.idList === 0) {
       dispatch(delEventAction(user.idEvent));
-      delEvent( user.idEvent, config).then((res) => {
+      delEvent(user.idEvent, config).then((res) => {
         console.log('elimino evento')
       })
-    }else{
+    } else {
       dispatch(delListAction(user.idList));
       delList(user.idList, config).then((res) => {
         console.log('elimino lista')
-      }) 
+      })
     }
     navigate('/main');
   }

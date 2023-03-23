@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react'
+import { useSelector } from "react-redux";
 import {
   Text,
   Avatar,
@@ -14,19 +14,14 @@ import {
 } from "@nextui-org/react";
 import { MenuIcon } from "../icons/MenuIcon";
 import { PlusIcon } from "../icons/PlusIcon";
-import { Listplus } from "../icons/Listplus";
 import config from '../config/config';
 import { AddNoteIcon } from "../icons/AddNoteIcon.js"
-import { EditDocumentIcon } from "../icons/EditDocumentIcon.js"
 import { postList } from "../api/postList";
 import { postEvent } from "../api/postEvent";
-import { logoutProfil } from '../actions';
 import { useNavigate } from "react-router-dom";
 
 function Head() {
-  const dispatch = useDispatch();
   const [visible, setVisible] = React.useState(false);
-  const [selected2, setSelected2] = React.useState(new Set(["text"]));
   const [event, setEvent] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const appState = useSelector(state => state.user);
@@ -40,40 +35,40 @@ function Head() {
 
   let header = {
     headers: {
-      Authorization : `Bearer ${appState.token}`
+      Authorization: `Bearer ${appState.token}`
     }
   }
   let PostList;
 
-  if(event){
+  if (event) {
     header = {
       headers: {
-        Authorization : `Bearer ${appState.token}`,
+        Authorization: `Bearer ${appState.token}`,
         "Content-Type": "multipart/form-data"
       }
     }
-    
-    PostList = ()=>{
-      setLoading(true); 
-        const formData = new FormData(form);
-        postEvent(formData,header).then((res)=>{
-          setLoading(false); 
-          setVisible(false);
-        });
+
+    PostList = () => {
+      setLoading(true);
+      const formData = new FormData(form);
+      postEvent(formData, header).then((res) => {
+        setLoading(false);
+        setVisible(false);
+      });
     }
-  }else{
-    PostList = ()=>{
-        setLoading(true); 
-        const data = {
-          id_event: '',
-          nombre: document.getElementById("name_list").value,
-          estado: 1,
-          referencia: "",
-        }
-        postList(data,header).then((res)=>{
-          setLoading(false); 
-          setVisible(false);
-        });
+  } else {
+    PostList = () => {
+      setLoading(true);
+      const data = {
+        id_event: '',
+        nombre: document.getElementById("name_list").value,
+        estado: 1,
+        referencia: "",
+      }
+      postList(data, header).then((res) => {
+        setLoading(false);
+        setVisible(false);
+      });
     }
   }
 
@@ -115,18 +110,18 @@ function Head() {
             color="primary"
             name={appState.user.name}
             description={appState.user.apellidos}
-            src={config.URL+"images/"+appState.user.avatar}
+            src={config.URL + "images/" + appState.user.avatar}
           />
         </Grid>
         <Grid xs={4} justify="flex-end">
-            <Button
-              auto
-              color="error"
-              style={{ marginRight: "10px" }}
-              shadow
-              onClick={handler}
-              icon={<PlusIcon fill="currentColor" filled />}
-            />
+          <Button
+            auto
+            color="error"
+            style={{ marginRight: "10px" }}
+            shadow
+            onClick={handler}
+            icon={<PlusIcon fill="currentColor" filled />}
+          />
           <Dropdown placement="bottom-left" shadow>
             <Dropdown.Trigger>
               <Avatar
@@ -137,8 +132,8 @@ function Head() {
                 icon={<MenuIcon fill="currentColor" filled />}
               />
             </Dropdown.Trigger>
-            <Dropdown.Menu 
-              color="primary" 
+            <Dropdown.Menu
+              color="primary"
               shadow aria-label="User Actions"
               selectionMode="single"
               selectedKeys={selected}
@@ -194,10 +189,10 @@ function Head() {
                 </Text>
               </Grid>
               <Grid>
-                <Switch shadow color="primary" checked={false} onChange={evento}/>
+                <Switch shadow color="primary" checked={false} onChange={evento} />
               </Grid>
             </Grid.Container>
-              {event ? (<Input clearable name="file" id="file" type="file" color="primary" size="sm" placeholder="File"  onChange={(e)=>this.handleFile(e)}/>) : null }
+            {event ? (<Input clearable name="file" id="file" type="file" color="primary" size="sm" placeholder="File" onChange={(e) => this.handleFile(e)} />) : null}
           </form>
         </Modal.Body>
         <Modal.Footer>

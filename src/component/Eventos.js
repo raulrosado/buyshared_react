@@ -4,20 +4,19 @@ import { Text, Loading } from "@nextui-org/react";
 import CardEvent from './CardEvent';
 import CardListas from './CardListas';
 import { getList } from '../api/getList';
-import { useNavigate } from "react-router-dom";
 import { getEvent } from '../api/getEvent';
-import { addLists, addEvents, addListsAvatar, addEventsAvatar,saveLocalStorage } from '../actions';
+import { addLists, addEvents, addListsAvatar, addEventsAvatar, saveLocalStorage } from '../actions';
 import LoadInfo from "../function/LoadInfo"
 
 function Eventos() {
   const dispatch = useDispatch();
   let user;
   user = useSelector(state => state.user);
-  if(user === null){
+  if (user === null) {
     user = JSON.parse(localStorage.getItem('buyshare'))
     dispatch(saveLocalStorage(JSON.parse(localStorage.getItem('buyshare'))))
   }
-  
+
   const listsState = user.lists;
   const eventsState = user.events;
   const listsStateAvatar = user.listsAvatars;
@@ -65,7 +64,7 @@ function Eventos() {
         //elimino el ultimo elemento del array pq son las imagenes
         let listsMenos = res.data
         listsMenos.pop();
-        
+
         dispatch(addEvents(listsMenos))
         dispatch(addEventsAvatar(respuesta))
         setLoadingEvent(false);
@@ -74,17 +73,17 @@ function Eventos() {
     }
   }, [])
 
-    useEffect(() => {
-      if(listsState !== undefined){
-        // dispatch(addListsAvatar(listsAvatares))
-        setLists(listsState);
-        setListsAvatares(listsStateAvatar)
-      }
-    }, [listsAvatares])
+  useEffect(() => {
+    if (listsState !== undefined) {
+      // dispatch(addListsAvatar(listsAvatares))
+      setLists(listsState);
+      setListsAvatares(listsStateAvatar)
+    }
+  }, [listsAvatares])
 
   useEffect(() => {
-    if(listsState !== undefined){
-      
+    if (listsState !== undefined) {
+
       // dispatch(addEventsAvatar(listsAvataresEvent))
       setListsEvent(eventsState);
       setListsAvataresEvent(eventsStateAvatar)

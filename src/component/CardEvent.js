@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function CardEvent(props) {
-  const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
   const eventsState = useSelector(state => state.user.events);
   const eventsStateAvatar = useSelector(state => state.user.eventsAvatars);
   
