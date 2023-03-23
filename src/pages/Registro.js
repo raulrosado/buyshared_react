@@ -9,6 +9,7 @@ import { LockIcon } from "../icons/LockIcon";
 import "./login/Login.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import config from '../config/config'
 import { useNavigate } from "react-router-dom";
 
 function Registro() {
@@ -21,7 +22,7 @@ function Registro() {
       setLoading(true);
       axios({
         method: "POST",
-        url: "http://localhost:5000/v1/api/add_user",
+        url: `${config.URL}/v1/api/add_user`,
         data: {
           firstName: document.getElementById("nombre").value,
           email: document.getElementById("email").value,
@@ -30,7 +31,7 @@ function Registro() {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:3000/registro",
+          "Access-Control-Allow-Origin": `${config.URL}/registro`,
         },
       })
         .then(function (response) {
@@ -106,7 +107,7 @@ function Registro() {
         <Grid xs={12} md={6} sm={6}>
               <Image
                   className="imgLogo"
-                  src="/images/list.jpg"
+                  src={`${process.env.PUBLIC_URL}/images/list.jpg`}
                   alt="Default Image"
                   objectFit="cover"
                   />

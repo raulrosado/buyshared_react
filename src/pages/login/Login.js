@@ -63,7 +63,7 @@ function Login() {
         <Grid xs={12} md={6} sm={6}>
             <Image
                 className="imgLogo"
-                src="/images/list.jpg"
+                src={`${process.env.PUBLIC_URL}/images/list.jpg`}
                 alt="Default Image"
                 objectFit="cover"
                 />
