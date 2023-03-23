@@ -60,7 +60,6 @@ function App({ Component }) {
         <Route path="/setting" exact element={<NotRegisteredUser />} />
       </Routes>
       )}
-       
     </div>
   );
 }
