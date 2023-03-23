@@ -1,6 +1,7 @@
 {
-  "name": "buyshare",
+  "name": "buyshared",
   "version": "0.1.0",
+  "homepage": "https://raulrosado.github.io/buyshared_react",
   "private": true,
   "dependencies": {
     "@nextui-org/react": "^1.0.0-beta.11",

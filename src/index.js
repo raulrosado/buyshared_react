@@ -5,23 +5,24 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 // 1. import `NextUIProvider` component
 import { NextUIProvider } from '@nextui-org/react';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter,HashRouter} from "react-router-dom";
 
 import {createStore} from 'redux';
 import { Provider } from 'react-redux';
 import userReducer from './reducers/userReducer';
 
-const store = createStore(userReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(userReducer);
+// const store = createStore(userReducer,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
   <React.StrictMode>
     <NextUIProvider>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </NextUIProvider>
   </React.StrictMode>
   </Provider>
