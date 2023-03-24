@@ -27,7 +27,7 @@ function Login() {
   const user = useSelector(state => state.user);
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
-  let decodedToken;
+  let decodedTokenString;
   
   useEffect(() => {
       dispatch(logoutProfil(user))
@@ -35,14 +35,17 @@ function Login() {
   
   useGoogleOneTapLogin({
     onSuccess: credentialResponse => {
-      console.log(credentialResponse);
-      decodedToken =  decodeToken(credentialResponse.credential);
-      console.log(decodeToken)
+      proccessGoogleLogin(credentialResponse.credential)
     },
     onError: () => {
       console.log('Login Failed');
     },
   });
+
+  const proccessGoogleLogin = (credencialesResponse) =>{
+    decodedTokenString =  decodeToken(credencialesResponse);
+    console.log(decodedTokenString)
+  }
 
   const login = () => {
     if (!loading) {
@@ -131,7 +134,7 @@ function Login() {
                   <Grid xs={6} justify="flex-end">
                   <GoogleLogin
                     onSuccess={credentialResponse => {
-                      console.log(credentialResponse);
+                      proccessGoogleLogin(credentialResponse.credential)
                     }}
                     onError={() => {
                       console.log('Login Failed');
