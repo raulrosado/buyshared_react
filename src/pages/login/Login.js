@@ -18,6 +18,8 @@ import { setUser,logoutProfil } from "../../actions";
 import { useDispatch,useSelector } from "react-redux";
 import { postLogin } from "../../api/postLogin";
 import LoadInfo from "../../function/LoadInfo"
+import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleOneTapLogin } from '@react-oauth/google';
 
 function Login() {
   const dispatch = useDispatch();
@@ -29,6 +31,14 @@ function Login() {
       dispatch(logoutProfil(user))
   }, [])
   
+  useGoogleOneTapLogin({
+    onSuccess: credentialResponse => {
+      console.log(credentialResponse);
+    },
+    onError: () => {
+      console.log('Login Failed');
+    },
+  });
 
   const login = () => {
     if (!loading) {
@@ -115,7 +125,14 @@ function Login() {
                 </Grid>
                 <Grid.Container gap={2} justify="center" >
                   <Grid xs={6} justify="flex-end">
-                    
+                  <GoogleLogin
+                    onSuccess={credentialResponse => {
+                      console.log(credentialResponse);
+                    }}
+                    onError={() => {
+                      console.log('Login Failed');
+                    }}
+                  />
                   </Grid>
                 </Grid.Container>
 

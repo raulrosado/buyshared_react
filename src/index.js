@@ -10,6 +10,7 @@ import { BrowserRouter,HashRouter} from "react-router-dom";
 import {createStore} from 'redux';
 import { Provider } from 'react-redux';
 import userReducer from './reducers/userReducer';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const store = createStore(userReducer);
 // const store = createStore(userReducer,
@@ -20,9 +21,11 @@ root.render(
   <Provider store={store}>
   <React.StrictMode>
     <NextUIProvider>
+      <GoogleOAuthProvider clientId="273697169590-2eto6orfn9htfj8luhjqrdgu01243f7m.apps.googleusercontent.com">
       <HashRouter>
         <App />
       </HashRouter>
+      </GoogleOAuthProvider>
     </NextUIProvider>
   </React.StrictMode>
   </Provider>
