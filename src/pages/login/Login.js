@@ -21,6 +21,7 @@ import LoadInfo from "../../function/LoadInfo"
 import { GoogleLogin } from '@react-oauth/google';
 import { useGoogleOneTapLogin } from '@react-oauth/google';
 import { decodeToken } from "react-jwt";
+import { postRegistroSocial } from "../../api/postRegistroSocial";
 
 function Login() {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ function Login() {
   useEffect(() => {
       dispatch(logoutProfil(user))
   }, [])
-  
+
   useGoogleOneTapLogin({
     onSuccess: credentialResponse => {
       proccessGoogleLogin(credentialResponse.credential)
@@ -43,8 +44,20 @@ function Login() {
   });
 
   const proccessGoogleLogin = (credencialesResponse) =>{
+    setLoading(true)
     decodedTokenString =  decodeToken(credencialesResponse);
-    console.log(decodedTokenString)
+    const parametro = {
+      nombre: decodedTokenString.name,
+      email: decodedTokenString.email,
+      password: decodedTokenString.sub,
+      avatar: decodedTokenString.picture
+    };
+    postRegistroSocial(parametro).then((response) => {
+      setLoading(false)
+      dispatch(setUser(response.data))
+      LoadInfo(response.data)
+      navigate('/main');
+    });
   }
 
   const login = () => {
