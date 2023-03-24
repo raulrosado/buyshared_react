@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { saveLocalStorage } from "./actions";
 import NotRegisteredUser from './pages/NotRegisteredUser';
+import Politicas from './pages/Politicas'
+import Condiciones from './pages/Condiciones'
 
 function App({ Component }) {
   const dispatch = useDispatch();
@@ -41,7 +43,8 @@ function App({ Component }) {
         <Route path="/registro" element={<Registro />} />
         <Route path="/accept/:token" element={<AcceptSolicitud />} />
         <Route path="*" element={NotFound} />
-        <Route path="/not" element={<NotRegisteredUser />} />
+        <Route path="/politica" element={<Politicas />} />
+        <Route path="/condiciones" element={<Condiciones/>} />
       </Routes>
       {isAuth ? (
         <Routes>

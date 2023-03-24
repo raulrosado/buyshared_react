@@ -28,6 +28,7 @@ function Login() {
   useEffect(() => {
       dispatch(logoutProfil(user))
   }, [])
+  
 
   const login = () => {
     if (!loading) {
@@ -36,7 +37,7 @@ function Login() {
         email: document.getElementById("email").value,
         password: document.getElementById("password").value
       };
-
+    
       postLogin(parametro).then((response)=>{
           setLoading(false)
           dispatch(setUser(response.data))
@@ -112,6 +113,12 @@ function Login() {
                         {button}
                     </Button>
                 </Grid>
+                <Grid.Container gap={2} justify="center" >
+                  <Grid xs={6} justify="flex-end">
+                    
+                  </Grid>
+                </Grid.Container>
+
               </Grid.Container>
             </Grid.Container>
         </Grid>
