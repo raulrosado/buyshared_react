@@ -16,7 +16,7 @@ import config from '../config/config';
 import { Link } from "react-router-dom";
 import { actionSolicitud } from "../api/actionSolicitud";
 import { getInfoSolicitud } from "../api/getInfoSolicitud";
-import { saveLocalStorage } from "./actions";
+import { saveLocalStorage } from "../actions";
 
 export default function AcceptSolicitud() {
     const params = useParams();
