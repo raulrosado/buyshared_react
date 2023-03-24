@@ -20,12 +20,14 @@ import { postLogin } from "../../api/postLogin";
 import LoadInfo from "../../function/LoadInfo"
 import { GoogleLogin } from '@react-oauth/google';
 import { useGoogleOneTapLogin } from '@react-oauth/google';
+import { decodeToken } from "react-jwt";
 
 function Login() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
+  let decodedToken;
   
   useEffect(() => {
       dispatch(logoutProfil(user))
@@ -34,6 +36,8 @@ function Login() {
   useGoogleOneTapLogin({
     onSuccess: credentialResponse => {
       console.log(credentialResponse);
+      decodedToken =  decodeToken(credentialResponse.credential);
+      console.log(decodeToken)
     },
     onError: () => {
       console.log('Login Failed');
