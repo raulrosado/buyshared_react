@@ -16,9 +16,11 @@ import config from '../config/config';
 import { Link } from "react-router-dom";
 import { actionSolicitud } from "../api/actionSolicitud";
 import { getInfoSolicitud } from "../api/getInfoSolicitud";
+import { saveLocalStorage } from "./actions";
 
 export default function AcceptSolicitud() {
     const params = useParams();
+    const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const [loadingGet, setLoadingGet] = useState(false);
     const [contenido, setContenido] = useState(false);
@@ -63,10 +65,14 @@ export default function AcceptSolicitud() {
                 Authorization: `Bearer ${user.token}`,
             },
         };
-        loginAvatar = <User
+        const buyshare = JSON.parse(localStorage.getItem('buyshare'));
+        dispatch(saveLocalStorage (buyshare))
+        if(user.user.avatar !== null){
+            loginAvatar = <User
             src={config.URL + "images/" + user.user.avatar}
             name={user.user.name}
             description={user.user.apellidos} />
+        }
     }
 
     const cancel = () => {
