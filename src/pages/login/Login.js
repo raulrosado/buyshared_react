@@ -144,7 +144,7 @@ function Login() {
                     </Button>
                 </Grid>
                 <Grid.Container gap={2} justify="center" >
-                  <Grid xs={6} justify="flex-end">
+                  <Grid xs={6} justify="center">
                   <GoogleLogin
                     onSuccess={credentialResponse => {
                       proccessGoogleLogin(credentialResponse.credential)
