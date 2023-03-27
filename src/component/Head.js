@@ -111,7 +111,7 @@ function Head() {
             color="primary"
             name={appState.user.name}
             description={appState.user.apellidos}
-            src={appState.user.role === "social" ? (config.URL + "images/" + appState.user.avatar):(appState.user.avatar)}
+            src={appState.user.role === "social" ? (appState.user.avatar) : (config.URL + "images/" + appState.user.avatar)}
           />
         </Grid>
         <Grid xs={4} justify="flex-end">
