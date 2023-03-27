@@ -99,6 +99,7 @@ function Head() {
     button = <Text color="white">Enviar</Text>
   }
 
+
   return (
     <div style={{ padding: "10px" }}>
       <Grid.Container gap={0} justify="center">
@@ -110,7 +111,7 @@ function Head() {
             color="primary"
             name={appState.user.name}
             description={appState.user.apellidos}
-            src={config.URL + "images/" + appState.user.avatar}
+            src={appState.user.role === "social" ? (config.URL + "images/" + appState.user.avatar):(appState.user.avatar)}
           />
         </Grid>
         <Grid xs={4} justify="flex-end">
