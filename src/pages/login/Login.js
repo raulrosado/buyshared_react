@@ -105,7 +105,7 @@ function Login() {
                 <Text id="modal-title" size={18}>
                   Bienvenidos a 
                   <Text b size={18} style={{ marginLeft: '5px' }}>
-                     BUYSHARE
+                     BUYSHARED
                   </Text>
                 </Text>
                 <Grid xs={12}>
