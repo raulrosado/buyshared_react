@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# BuyShared
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Image text](https://github.com/raulrosado/buyshared_node/blob/main/pngwing.com.jpg)
+![Image text](https://github.com/raulrosado/buyshared_node/blob/main/pngwing.com%20es.jpg)
 
 ## Available Scripts
 
