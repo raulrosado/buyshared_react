@@ -1,5 +1,5 @@
 import { SET_USER, SEL_EVENT, SEL_LIST, SHOW_MODAL, ADD_LISTS, ADD_EVENTS, ADD_EVENTSAVATARS, ADD_LISTSAVATARS, DEL_LIST, DEL_EVENT, ADD_TASK, ADD_TASKS } from "../actions/type";
-import { DEL_TASK, COMPLET_TASK, LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE,ADD_TASKSREFERENCE,SEL_REFERENCE,SAVE } from "../actions/type";
+import { DEL_TASK, COMPLET_TASK, LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE,ADD_TASKSREFERENCE,SEL_REFERENCE,SAVE,ADD_LIST } from "../actions/type";
 
 const initialState = {
   user: []
@@ -30,6 +30,11 @@ const userReducer = (state = initialState, action) => {
       const estadoList = { ...state.user }
       estadoList.lists = action.payload
       return { ...state, user: estadoList };
+
+      case ADD_LIST:
+        const estadoList2 = { ...state.user }
+        estadoList2.lists = estadoList2.lists.concat(action.payload);
+        return { ...state, user: estadoList2 };
 
     case ADD_EVENTS:
       const estadoEvent = { ...state.user }

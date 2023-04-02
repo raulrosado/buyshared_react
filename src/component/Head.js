@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import {
   Text,
   Avatar,
@@ -19,6 +19,7 @@ import { AddNoteIcon } from "../icons/AddNoteIcon.js"
 import { postList } from "../api/postList";
 import { postEvent } from "../api/postEvent";
 import { useNavigate } from "react-router-dom";
+import { addNewList } from "../actions"
 
 function Head() {
   const [visible, setVisible] = React.useState(false);
@@ -27,6 +28,7 @@ function Head() {
   const appState = useSelector(state => state.user);
   const handler = () => setVisible(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const closeHandler = () => {
     setVisible(false);
   };
@@ -66,6 +68,7 @@ function Head() {
         referencia: "",
       }
       postList(data, header).then((res) => {
+        dispatch(addNewList(res.data))
         setLoading(false);
         setVisible(false);
       });

@@ -75,6 +75,12 @@ function Eventos() {
 
   useEffect(() => {
     if (listsState !== undefined) {
+      setLists(listsState);
+    }
+  }, [listsState])
+
+  useEffect(() => {
+    if (listsState !== undefined) {
       // dispatch(addListsAvatar(listsAvatares))
       setLists(listsState);
       setListsAvatares(listsStateAvatar)
