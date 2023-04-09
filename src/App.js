@@ -17,13 +17,16 @@ import Condiciones from './pages/Condiciones'
 
 function App({ Component }) {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
+  let user = []
+  user = useSelector(state => state.user);
   const [isAuth, setIsAuth] = useState(false);
-  
+  console.log(user)
   useEffect(() => {
     if(user === null){
       setIsAuth(false)
+      console.log('false')
     }else{
+      console.log('true')
       setIsAuth(true)
       if(user.length === 0){
         const buyshare = JSON.parse(localStorage.getItem('buyshare'));
@@ -31,15 +34,15 @@ function App({ Component }) {
         setIsAuth(false)
       }else{
         setIsAuth(true)
-      }
+      } 
     }
   }, [user])
 
   return (
     <div className="App">
-      <Routes>
+      <Routes> 
         <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
+        
         <Route path="/registro" element={<Registro />} />
         <Route path="/accept/:token" element={<AcceptSolicitud />} />
         <Route path="*" element={NotFound} />
@@ -48,6 +51,8 @@ function App({ Component }) {
       </Routes>
       {isAuth ? (
         <Routes>
+          <Route path="/" exact element={<Main />} ></Route>
+          <Route path="/login" exact element={<Main />} ></Route>
           <Route path="/main" exact element={<Main />} ></Route>
           <Route path="/detallesEventos/:id" exact element={<DetallesEventos />} ></Route>
           <Route path="/setting" exact element={<Setting />} ></Route>
@@ -55,6 +60,7 @@ function App({ Component }) {
       </Routes>
       ) : 
       (<Routes>
+        <Route path="/login" element={<Login />} />
         <Route path="/detallesEventos/:id" exact element={<NotRegisteredUser />} />
         <Route path="/detalles/:id" exact element={<NotRegisteredUser />} />
         <Route path="/main" exact element={<NotRegisteredUser />} />

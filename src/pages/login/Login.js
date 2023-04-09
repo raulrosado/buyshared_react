@@ -22,6 +22,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useGoogleOneTapLogin } from '@react-oauth/google';
 import { decodeToken } from "react-jwt";
 import { postRegistroSocial } from "../../api/postRegistroSocial";
+import Login_component from "../../component/Login_component";
 
 function Login() {
   const dispatch = useDispatch();
@@ -29,65 +30,8 @@ function Login() {
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate();
   let decodedTokenString;
+  const [visual, setVisual] = React.useState(<Login_component/>);
   
-  useEffect(() => {
-      dispatch(logoutProfil(user))
-  }, [])
-
-  useGoogleOneTapLogin({
-    onSuccess: credentialResponse => {
-      proccessGoogleLogin(credentialResponse.credential)
-    },
-    onError: () => {
-      console.log('Login Failed');
-    },
-  });
-
-  const proccessGoogleLogin = (credencialesResponse) =>{
-    setLoading(true)
-    decodedTokenString =  decodeToken(credencialesResponse);
-    const parametro = {
-      nombre: decodedTokenString.name,
-      email: decodedTokenString.email,
-      password: decodedTokenString.sub,
-      avatar: decodedTokenString.picture
-    };
-    postRegistroSocial(parametro).then((response) => {
-      setLoading(false)
-      dispatch(setUser(response.data))
-      LoadInfo(response.data)
-      navigate('/main');
-    });
-  }
-
-  const login = () => {
-    if (!loading) {
-      setLoading(true)
-      const parametro = {
-        email: document.getElementById("email").value,
-        password: document.getElementById("password").value
-      };
-    
-      postLogin(parametro).then((response)=>{
-          setLoading(false)
-          dispatch(setUser(response.data))
-          LoadInfo(response.data)
-          navigate('/main');
-      }).catch(function (error) {
-        console.log(error);
-        alert(error);
-        setLoading(false)
-      });
-    }
-  };
-
-  let button;
-  if (loading) {
-    button = <Loading type="points" color="currentColor" size="sm" />
-  } else {
-    button = <Text color="white">Entrar</Text>
-  }
-
   return (
     <div className="centro">
       <Grid.Container gap={2} justify="center">
@@ -99,66 +43,7 @@ function Login() {
                 objectFit="cover"
                 />
         </Grid>
-        <Grid xs={12} md={6} sm={6} style={{display:'grid',alignItems:'center'}}>
-            <Grid.Container gap={2} justify="center" className="login" style={{display:'grid',alignItems:'center'}}>
-              <Grid.Container gap={2} justify="center" >
-                <Text id="modal-title" size={18}>
-                  Bienvenidos a 
-                  <Text b size={18} style={{ marginLeft: '5px' }}>
-                     BUYSHARED
-                  </Text>
-                </Text>
-                <Grid xs={12}>
-                    <Input
-                      id="email"
-                      clearable
-                      bordered
-                      fullWidth
-                      color="primary"
-                      size="lg"
-                      type="email"
-                      placeholder="Email"
-                      contentRight={<Mail fill="currentColor" />}
-                    />
-                </Grid>
-                <Grid xs={12}>
-                    <Input.Password
-                      id="password"
-                      clearable
-                      bordered
-                      fullWidth
-                      color="primary"
-                      size="lg"
-                      type="password"
-                      placeholder="Contraseña"
-                      visibleIcon={<UnLockIcon fill="currentColor" />}
-                      hiddenIcon={<LockIcon fill="currentColor" />}
-                    />
-                </Grid>
-                <Grid xs={6}>
-                    <Link to="/registro">No tengo cuenta!</Link>
-                </Grid>
-                <Grid xs={6} justify="flex-end">
-                    <Button auto onPress={login}>
-                        {button}
-                    </Button>
-                </Grid>
-                <Grid.Container gap={2} justify="center" >
-                  <Grid xs={6} justify="center">
-                  <GoogleLogin
-                    onSuccess={credentialResponse => {
-                      proccessGoogleLogin(credentialResponse.credential)
-                    }}
-                    onError={() => {
-                      console.log('Login Failed');
-                    }}
-                  />
-                  </Grid>
-                </Grid.Container>
-
-              </Grid.Container>
-            </Grid.Container>
-        </Grid>
+        {visual}
       </Grid.Container>
     </div>
   );

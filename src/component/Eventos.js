@@ -80,16 +80,17 @@ function Eventos() {
   }, [listsState])
 
   useEffect(() => {
+    console.log(listsStateAvatar)
     if (listsState !== undefined) {
       // dispatch(addListsAvatar(listsAvatares))
-      setLists(listsState);
+      // setLists(listsState);
       setListsAvatares(listsStateAvatar)
     }
-  }, [listsAvatares])
+  }, [listsStateAvatar])
 
   useEffect(() => {
+    console.log("cambio" + listsAvataresEvent)
     if (listsState !== undefined) {
-
       // dispatch(addEventsAvatar(listsAvataresEvent))
       setListsEvent(eventsState);
       setListsAvataresEvent(eventsStateAvatar)
@@ -109,26 +110,27 @@ function Eventos() {
 
   return (
     <div >
-      <Text
+     
+
+      {listsEvent.length > 0 ? (<><Text
         h3
         size={30}
         color="black"
         weight="bold"
         style={{ textAlign: 'left', marginLeft: '10px' }}>
         Eventos
-      </Text>
-
-      {listsEvent.length > 0 ? (<CardEvent />) : null}
+      </Text><CardEvent /></>) : null}
 
       {loadingCond2}
-      <Text
+      {lists.length > 0? ( <Text
         h3
         size={30}
         color="black"
         weight="bold"
         style={{ textAlign: 'left', marginLeft: '10px' }}>
         Listas
-      </Text>
+      </Text>):null}
+     
 
       {lists.length > 0 ? (lists.map((list, i) => (
         <CardListas key={i} infoList={list} avatares={listsAvatares[i]} />

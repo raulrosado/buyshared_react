@@ -1,5 +1,5 @@
 import { SET_USER, SEL_EVENT, SEL_LIST, SHOW_MODAL, ADD_LISTS, ADD_EVENTS, ADD_EVENTSAVATARS, ADD_LISTSAVATARS, DEL_LIST, DEL_EVENT, ADD_TASK, ADD_TASKS } from "../actions/type";
-import { DEL_TASK, COMPLET_TASK, LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE,ADD_TASKSREFERENCE,SEL_REFERENCE,SAVE,ADD_LIST } from "../actions/type";
+import { DEL_TASK, COMPLET_TASK, LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE,ADD_TASKSREFERENCE,SEL_REFERENCE,SAVE,ADD_LIST,ADD_LISTSAVATAR,ADD_EVENT } from "../actions/type";
 
 const initialState = {
   user: []
@@ -31,15 +31,15 @@ const userReducer = (state = initialState, action) => {
       estadoList.lists = action.payload
       return { ...state, user: estadoList };
 
-      case ADD_LIST:
+    case ADD_LIST:
         const estadoList2 = { ...state.user }
         estadoList2.lists = estadoList2.lists.concat(action.payload);
         return { ...state, user: estadoList2 };
 
     case ADD_EVENTS:
-      const estadoEvent = { ...state.user }
-      estadoEvent.events = action.payload
-      return { ...state, user: estadoEvent };
+      const estadoEvents = { ...state.user }
+      estadoEvents.events = action.payload
+      return { ...state, user: estadoEvents };
 
     case ADD_EVENTSAVATARS:
       const estadoEventAvatar = { ...state.user }
@@ -50,6 +50,11 @@ const userReducer = (state = initialState, action) => {
       const estadoListAvatar = { ...state.user }
       estadoListAvatar.listsAvatars = action.payload
       return { ...state, user: estadoListAvatar };
+
+    case ADD_LISTSAVATAR:
+      const estadoListAvatars = { ...state.user }
+      estadoListAvatars.listsAvatars = estadoListAvatars.listsAvatars.concat(action.payload)
+      return { ...state, user: estadoListAvatars };
 
     case DEL_LIST:
       const antiguoListState = { ...state.user }
@@ -119,6 +124,11 @@ const userReducer = (state = initialState, action) => {
       const antiguoReference = { ...state.user }
       antiguoReference.idReference = action.payload
       return { ...state, user: antiguoReference };
+
+    case ADD_EVENT:
+      const estadoEvent = {...state.user } 
+      estadoEvent.events = estadoEvent.events.concat(action.payload);
+      return {...state, user: estadoEvent };
 
     default:
       return { ...state };

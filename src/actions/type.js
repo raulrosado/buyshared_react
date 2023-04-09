@@ -20,3 +20,5 @@ export const CHANGEPICTURE = 'CHANGEPICTURE';
 export const CHANGEINFOPROFILE = 'CHANGEINFOPROFILE';
 export const SAVE = 'SAVE';
 export const ADD_LIST = 'ADD_LIST';
+export const ADD_LISTSAVATAR = 'ADD_LISTSAVATAR';
+export const ADD_EVENT = 'ADD_EVENT';

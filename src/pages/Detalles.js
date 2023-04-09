@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetailList } from "../api/getDetailList";
 import { setEvent, setList, addTasksState,selectReference } from "../actions";
 import LoadInfo from "../function/LoadInfo"
+import "./css/detalles.css"
 
 function Detalles() {
   const params = useParams();
@@ -72,7 +73,7 @@ function Detalles() {
       <TopHeadImage2 cambiarInfo={cambiarInfo} />
       {tasks.length > 0 ? (tasks.map((infoTask, i) => (
         <Task info={infoTask} key={i} />
-      ))):(<div><Spacer y={1} /><Badge color="secondary">Agregue una tarea</Badge></div>)}
+      ))):(<div><Spacer y={1} /><div className="alertEmpty">Agregue una tarea</div></div>)}
       
       {loadingCond}
     </div>

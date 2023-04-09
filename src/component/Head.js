@@ -1,5 +1,5 @@
-import React from 'react'
-import { useSelector,useDispatch } from "react-redux";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Text,
   Avatar,
@@ -14,12 +14,12 @@ import {
 } from "@nextui-org/react";
 import { MenuIcon } from "../icons/MenuIcon";
 import { PlusIcon } from "../icons/PlusIcon";
-import config from '../config/config';
-import { AddNoteIcon } from "../icons/AddNoteIcon.js"
+import config from "../config/config";
+import { AddNoteIcon } from "../icons/AddNoteIcon.js";
 import { postList } from "../api/postList";
 import { postEvent } from "../api/postEvent";
 import { useNavigate } from "react-router-dom";
-import { addNewList } from "../actions"
+import { addNewList,addAvatarList } from "../actions";
 
 function Head() {
   const [visible, setVisible] = React.useState(false);
@@ -39,7 +39,7 @@ function Head() {
     headers: {
       Authorization: `Bearer ${appState.token}`
     }
-  }
+  };
   let PostList;
 
   if (event) {
@@ -48,31 +48,37 @@ function Head() {
         Authorization: `Bearer ${appState.token}`,
         "Content-Type": "multipart/form-data"
       }
-    }
+    };
 
     PostList = () => {
       setLoading(true);
       const formData = new FormData(form);
-      postEvent(formData, header).then((res) => {
+      postEvent(formData, header).then(res => {
+        console.log(res); 
         setLoading(false);
         setVisible(false);
       });
-    }
+    };
   } else {
     PostList = () => {
       setLoading(true);
       const data = {
-        id_event: '',
+        id_event: "",
         nombre: document.getElementById("name_list").value,
         estado: 1,
-        referencia: "",
-      }
-      postList(data, header).then((res) => {
-        dispatch(addNewList(res.data))
+        referencia: ""
+      };
+      postList(data, header).then(res => {
+        delete res.data.tasks
+        let avatarList = []
+        avatarList.push(res.data.avatarList);
+        dispatch(addAvatarList(avatarList))
+        delete res.data.avatarList
+        dispatch(addNewList(res.data));
         setLoading(false);
         setVisible(false);
       });
-    }
+    };
   }
 
   const [selected, setSelected] = React.useState(new Set(["rilo"]));
@@ -82,26 +88,25 @@ function Head() {
   );
 
   if (selected.anchorKey === "logout") {
-    localStorage.removeItem('buyshare')
+    localStorage.removeItem("buyshare");
     setSelected("na");
-    navigate('/');
+    navigate("/");
   }
   if (selected.anchorKey === "settings") {
     setSelected("na");
-    navigate('/setting');
+    navigate("/setting");
   }
 
-  const evento = (e) => {
+  const evento = e => {
     setEvent(e.target.checked);
-  }
+  };
 
   let button;
   if (loading) {
-    button = <Loading type="points" color="currentColor" size="sm" />
+    button = <Loading type="points" color="currentColor" size="sm" />;
   } else {
-    button = <Text color="white">Enviar</Text>
+    button = <Text color="white">Enviar</Text>;
   }
-
 
   return (
     <div style={{ padding: "10px" }}>
@@ -114,7 +119,11 @@ function Head() {
             color="primary"
             name={appState.user.name}
             description={appState.user.apellidos}
-            src={appState.user.role === "social" ? (appState.user.avatar) : (config.URL + "images/" + appState.user.avatar)}
+            src={
+              appState.user.role === "social"
+                ? appState.user.avatar
+                : config.URL + "images/" + appState.user.avatar
+            }
           />
         </Grid>
         <Grid xs={4} justify="flex-end">
@@ -138,7 +147,8 @@ function Head() {
             </Dropdown.Trigger>
             <Dropdown.Menu
               color="primary"
-              shadow aria-label="User Actions"
+              shadow
+              aria-label="User Actions"
               selectionMode="single"
               selectedKeys={selected}
               onSelectionChange={setSelected}
@@ -193,10 +203,26 @@ function Head() {
                 </Text>
               </Grid>
               <Grid>
-                <Switch shadow color="primary" checked={false} onChange={evento} />
+                <Switch
+                  shadow
+                  color="primary"
+                  checked={false}
+                  onChange={evento}
+                />
               </Grid>
             </Grid.Container>
-            {event ? (<Input clearable name="file" id="file" type="file" color="primary" size="sm" placeholder="File" onChange={(e) => this.handleFile(e)} />) : null}
+            {event
+              ? <Input
+                  clearable
+                  name="file"
+                  id="file"
+                  type="file"
+                  color="primary"
+                  size="sm"
+                  placeholder="File"
+                  onChange={e => this.handleFile(e)}
+                />
+              : null}
           </form>
         </Modal.Body>
         <Modal.Footer>
