@@ -89,13 +89,13 @@ function Eventos() {
   }, [listsStateAvatar])
 
   useEffect(() => {
-    console.log("cambio" + listsAvataresEvent)
+    console.log(eventsState)
     if (listsState !== undefined) {
       // dispatch(addEventsAvatar(listsAvataresEvent))
       setListsEvent(eventsState);
       setListsAvataresEvent(eventsStateAvatar)
     }
-  }, [listsAvataresEvent])
+  }, [eventsState])
 
   LoadInfo(useSelector(state => state.user));
 
@@ -110,8 +110,6 @@ function Eventos() {
 
   return (
     <div >
-     
-
       {listsEvent.length > 0 ? (<><Text
         h3
         size={30}

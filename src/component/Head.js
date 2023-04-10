@@ -19,7 +19,7 @@ import { AddNoteIcon } from "../icons/AddNoteIcon.js";
 import { postList } from "../api/postList";
 import { postEvent } from "../api/postEvent";
 import { useNavigate } from "react-router-dom";
-import { addNewList,addAvatarList } from "../actions";
+import { addNewList,addAvatarList,addNewEvent,addNewEventAvatar } from "../actions";
 
 function Head() {
   const [visible, setVisible] = React.useState(false);
@@ -54,7 +54,10 @@ function Head() {
       setLoading(true);
       const formData = new FormData(form);
       postEvent(formData, header).then(res => {
-        console.log(res); 
+        dispatch(addNewEvent(res.data))
+        let avatarEvent = []
+        avatarEvent.push(res.data.avatar);
+        dispatch(addNewEventAvatar(avatarEvent))
         setLoading(false);
         setVisible(false);
       });

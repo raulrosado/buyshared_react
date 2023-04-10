@@ -77,7 +77,7 @@ function DetallesEventos() {
 
       {tasks.length > 0 ? (tasks.map((infoTask, i) => (
         <Task info={infoTask} key={i} />
-      ))) : (<div><Spacer y={1} /><Badge color="secondary">Agregue una tarea</Badge></div>)}
+      ))) : (<div><Spacer y={1} /><div className="alertEmpty">Agregue una tarea</div></div>)}
       {loadingCond}
     </div>
   )

@@ -1,5 +1,5 @@
 import { SET_USER, SEL_EVENT, SEL_LIST, SHOW_MODAL, ADD_LISTS, ADD_EVENTS, ADD_EVENTSAVATARS, ADD_LISTSAVATARS, DEL_LIST, DEL_EVENT, ADD_TASK, ADD_TASKS } from "../actions/type";
-import { DEL_TASK, COMPLET_TASK, LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE,ADD_TASKSREFERENCE,SEL_REFERENCE,SAVE,ADD_LIST,ADD_LISTSAVATAR,ADD_EVENT } from "../actions/type";
+import { DEL_TASK, COMPLET_TASK, LOGOUT,CHANGEPICTURE,CHANGEINFOPROFILE,ADD_TASKSREFERENCE,SEL_REFERENCE,SAVE,ADD_LIST,ADD_LISTSAVATAR,ADD_EVENT,ADD_EVENTAVATARS } from "../actions/type";
 
 const initialState = {
   user: []
@@ -42,9 +42,9 @@ const userReducer = (state = initialState, action) => {
       return { ...state, user: estadoEvents };
 
     case ADD_EVENTSAVATARS:
-      const estadoEventAvatar = { ...state.user }
-      estadoEventAvatar.eventsAvatars = action.payload
-      return { ...state, user: estadoEventAvatar };
+      const estadoEventAvatars = { ...state.user }
+      estadoEventAvatars.eventsAvatars = action.payload
+      return { ...state, user: estadoEventAvatars };
 
     case ADD_LISTSAVATARS:
       const estadoListAvatar = { ...state.user }
@@ -129,6 +129,11 @@ const userReducer = (state = initialState, action) => {
       const estadoEvent = {...state.user } 
       estadoEvent.events = estadoEvent.events.concat(action.payload);
       return {...state, user: estadoEvent };
+
+    case ADD_EVENTAVATARS:
+      const estadoEventAvatar = {...state.user }
+      estadoEventAvatar.eventsAvatars = estadoEventAvatar.eventsAvatars.concat(action.payload);
+      return {...state, user: estadoEventAvatar };
 
     default:
       return { ...state };
