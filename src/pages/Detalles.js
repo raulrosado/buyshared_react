@@ -31,7 +31,6 @@ function Detalles() {
   };
 
   useEffect(() => {
-    console.log(listTasks)
     if (listTasks === undefined || listTasks.length === 0) {
       
     }else{

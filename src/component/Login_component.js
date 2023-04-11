@@ -38,7 +38,6 @@ function Login_component(){
       proccessGoogleLogin(credentialResponse.credential)
     },
     onError: () => {
-      console.log('Login Failed');
     },
   });
 
@@ -73,7 +72,6 @@ function Login_component(){
           LoadInfo(response.data)
           navigate('/main');
       }).catch(function (error) {
-        console.log(error);
         alert(error);
         setLoading(false)
       });

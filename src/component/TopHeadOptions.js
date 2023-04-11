@@ -110,12 +110,10 @@ function TopHeadOptions(props) {
     if (user.idList === 0) {
       dispatch(delEventAction(user.idEvent));
       delEvent(user.idEvent, config).then((res) => {
-        console.log('elimino evento')
       })
     } else {
       dispatch(delListAction(user.idList));
       delList(user.idList, config).then((res) => {
-        console.log('elimino lista')
       })
     }
     navigate('/main');

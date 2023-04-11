@@ -33,59 +33,6 @@ export default function AcceptSolicitud() {
     let login
     let loginAvatar
 
-    // console.log(user)
-
-    // if (user === null || user === undefined) {
-    //     login = false
-    //     const buyshare = JSON.parse(localStorage.getItem('buyshare'));
-    //     dispatch(saveLocalStorage (buyshare))
-    // } else {
-    //     login = true
-    //     head = {
-    //         headers: {
-    //             Authorization: `Bearer ${user.token}`,
-    //         },
-    //     };
-    // }
-
-    // useEffect(() => {
-    //     if (user === null || user === undefined) {
-    //         console.log("esta vacio") 
-    //     }else{
-    //         console.log("tiene info")
-    //             console.log(user.user)
-    //             loginAvatar = <Text b style={{ marginLeft: '5px' }}>BUYSHARED</Text>
-    //                 //  !== null || user.user !== undefined
-    //             if (user !== null || user !== undefined){
-    //                 console.log('muestra avatar')
-    //                 loginAvatar = <User
-    //                 src={user.user.role === "social" ? (user.user.avatar) : (config.URL + "images/" + user.user.avatar)}
-    //                 name={user.user.name}
-    //                 description={user.user.apellidos} />
-    //             }   
-
-    //             setLoadingGet(true)
-    //             getInfoSolicitud(params.token, head).then((response) => {
-    //                 setLoadingGet(false)
-    //                 emailInvitacion = response.data.email
-    //                 if (emailInvitacion === user.user.email) {
-    //             //         setContenido(<Grid.Container gap={2} justify="center">
-    //             //             <Grid xs={6} justify="center">
-    //             //                 <Button auto color="error" onPress={cancel}>Cancelar</Button>
-    //             //             </Grid>
-    //             //             <Grid xs={6} justify="center">
-    //             //                 <Button auto onPress={aceptS}>
-    //             //                     Aceptar solicitud
-    //             //                 </Button>
-    //             //             </Grid>
-    //             //         </Grid.Container>)
-    //                 } else {
-    //                     setContenido(<div><Text>Esta invitación no está destinada a usted</Text><Link to="/login">Ingresar en mi cuenta</Link></div>)
-    //                 }
-    //             });
-    //     }
-    // }, [])
-
     const cancel = () => {
         enviar(1)
     }
@@ -100,7 +47,6 @@ export default function AcceptSolicitud() {
             token: params.token
         };
         actionSolicitud(parametro, head).then((response) => {
-            console.log(response)
             setLoading(false)
             setContenido(<Link to="/main">Regrese a su lista</Link>)
             if (response.data.success === true) {

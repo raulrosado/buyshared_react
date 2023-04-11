@@ -20,13 +20,10 @@ function App({ Component }) {
   let user = []
   user = useSelector(state => state.user);
   const [isAuth, setIsAuth] = useState(false);
-  console.log(user)
   useEffect(() => {
     if(user === null){
       setIsAuth(false)
-      console.log('false')
     }else{
-      console.log('true')
       setIsAuth(true)
       if(user.length === 0){
         const buyshare = JSON.parse(localStorage.getItem('buyshare'));

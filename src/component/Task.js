@@ -42,7 +42,6 @@ function Task(props) {
 
   const handleCompletTaskFunction = () => {
     postModificTask(props.info._id, config).then((res) => {
-      console.log(res)
       let action = {
         "id": props.info._id,
         "estado": res.data.estado

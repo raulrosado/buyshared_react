@@ -6,7 +6,7 @@ import Task from "../component/Task";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getDetailEvent } from "../api/getDetailEvent";
-import { setEvent, setList, addTasksState,addTasksReferenceState, selectReference } from "../actions";
+import { setEvent, setList, addTasksState, addTasksReferenceState, selectReference } from "../actions";
 import LoadInfo from "../function/LoadInfo"
 
 function DetallesEventos() {
@@ -32,10 +32,11 @@ function DetallesEventos() {
 
   useEffect(() => {
     if (listTasks !== undefined) {
-      if (listTasks.lentgh > 0) {
+      try {
         if (listTasks[0].id_evento === params.id) {
           setTasks(listTasks)
         }
+      } catch (e) {
       }
     }
   }, [listTasks])
@@ -52,9 +53,9 @@ function DetallesEventos() {
           dispatch(addTasksReferenceState(res.data.taskReferencia));
         }
         dispatch(setEvent(params.id))
-        if(res.data.referencia === ""){
+        if (res.data.referencia === "") {
           dispatch(selectReference(params.id))
-        }else{
+        } else {
           dispatch(selectReference(res.data.referencia))
         }
         dispatch(setList(0))
@@ -63,7 +64,7 @@ function DetallesEventos() {
       });
     }
   });
-  
+
   LoadInfo(useSelector(state => state.user));
 
   let loadingCond;

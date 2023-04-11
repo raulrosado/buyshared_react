@@ -59,10 +59,8 @@ const userReducer = (state = initialState, action) => {
     case DEL_LIST:
       const antiguoListState = { ...state.user }
       let indice = antiguoListState.lists.findIndex(elem => elem._id === action.payload);
-      console.log(indice)
       if (indice >= 0) {
         let newArray = antiguoListState.lists.filter(elem => elem._id !== action.payload);
-        console.log(newArray)
         antiguoListState.lists = newArray
       }
       return { ...state, user: antiguoListState };

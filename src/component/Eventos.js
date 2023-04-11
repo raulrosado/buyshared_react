@@ -80,18 +80,13 @@ function Eventos() {
   }, [listsState])
 
   useEffect(() => {
-    console.log(listsStateAvatar)
     if (listsState !== undefined) {
-      // dispatch(addListsAvatar(listsAvatares))
-      // setLists(listsState);
       setListsAvatares(listsStateAvatar)
     }
   }, [listsStateAvatar])
 
   useEffect(() => {
-    console.log(eventsState)
     if (listsState !== undefined) {
-      // dispatch(addEventsAvatar(listsAvataresEvent))
       setListsEvent(eventsState);
       setListsAvataresEvent(eventsStateAvatar)
     }

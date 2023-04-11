@@ -35,7 +35,6 @@ function Registro() {
         },
       })
         .then(function (response) {
-          console.log(response);
           if (response.data.status) {
             setSuccess(true)
             navigate('/login');
@@ -45,12 +44,10 @@ function Registro() {
           setLoading(false);
         })
         .catch(function (error) {
-          console.log(error);
           setSuccess(false);
           setLoading(false);
         });
     }
-    console.log("enviar");
   };
 
   let button;
